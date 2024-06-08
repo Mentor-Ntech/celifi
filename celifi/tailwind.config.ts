@@ -21,7 +21,8 @@ const config = {
       colors: {
         "Celifi-Primary":"#090D05", 
         "Celifi-Dark-Green":"#020300",   
-        "Celifi-Yellow":"#FCFF52",        
+        "Celifi-Yellow":"#FCFF52",   
+        "Celifi-Light-Green":"#14190D",     
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
