@@ -6,7 +6,7 @@ import { CelifiIcon } from "./icons/CelifiLogo"
 
 export function Footer(){
     return(
-        <div className="h-20 w-screen flex justify-between pr-4  items-center text-sm">
+        <div className="h-20 w-screen flex md:justify-center justify-between pr-4  items-center text-sm">
             <div className="flex flex-col gap-4">
                 
                 <Button className=" text-Celifi-Yellow" variant="link">Governance</Button>
