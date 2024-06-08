@@ -7,7 +7,7 @@
   
   export function CommandDemo() {
     return (
-        <div className="w-screen h-screen relative">
+        <div className="w-screen min-h-screen relative">
             <div className="flex justify-between md:justify-end items-center w-full pr-4  md:pr-32  border-b-2 border-Celifi-Light-Green">
                 <div className="block md:hidden "> <Button className="bg-transparent   hover:bg-transparent"><CelifiIcon/></Button></div>
                
