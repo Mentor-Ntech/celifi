@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
-
+import { CelifiIcon } from "./icons/CelifiLogo";
 export default function Header() {
     const [hideConnectBtn, setHideConnectBtn] = useState(false);
     const { connect } = useConnect();
@@ -46,7 +46,7 @@ export default function Header() {
                                 <div className="flex flex-shrink-0 items-center">
                                     <Image
                                         className="block h-8 w-auto sm:block lg:block"
-                                        src="/logo.svg"
+                                        src="/svg/celifilogo.svg"
                                         width="24"
                                         height="24"
                                         alt="Celo Logo"
