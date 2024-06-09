@@ -3,14 +3,18 @@ import { Button } from "./ui/button"
 import { HeroIcon } from "./icons/Hero"
 import { CelifiIcon } from "./icons/CelifiLogo"
 import { SwapIcon } from "./icons/swap"
+import { LiquidityIcon } from "./icons/liquidity"
+import { StakingIcon } from "./icons/Staking"
+import { DashboardIcon } from "./icons/Dashboard"
+import { GovernanceIcon } from "./icons/Governance"
 
 export function Footer(){
     return(
         
         <div className="   bg-Celifi-Dark-Gray  h-20 w-screen  flex md:justify-center justify-between pr-4 gap-0 items-center  mr-2 rounded ">
            <div className="flex flex-col justify-center  items-center  text-xs">
-           <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
-                    <SwapIcon/>
+           <div className="bg-  rounded-full">
+                    <GovernanceIcon/>
                 </div>
                 
                 <Button className=" text-Celifi-Gray text-xs " variant="link">Governance</Button>
@@ -18,8 +22,8 @@ export function Footer(){
             </div>
            
             <div className="flex flex-col justify-center  items-center  text-xs">
-            <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
-                    <SwapIcon/>
+            <div className="  rounded-full">
+                    <StakingIcon/>
                 </div>
                 
                 <Button className=" text-Celifi-Gray text-xs" variant="link">Staking</Button>
@@ -27,14 +31,14 @@ export function Footer(){
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
             <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
-                    <SwapIcon/>
+            <DashboardIcon/>
                 </div>
                 
-                <Button className="text-Celifi-Gray text-xs " variant="link">Dashboard</Button>
+                <Button className="text-Celifi-Yellow text-xs " variant="link">Dashboard</Button>
 
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
-                <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                <div className=" rounded-full">
                     <SwapIcon/>
                 </div>
                 
@@ -42,8 +46,8 @@ export function Footer(){
 
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
-            <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
-                    <SwapIcon/>
+            <div className=" rounded-full">
+                    <LiquidityIcon/>
                 </div>
                 
                 
