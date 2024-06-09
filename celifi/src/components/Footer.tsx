@@ -2,35 +2,52 @@ import React from "react"
 import { Button } from "./ui/button"
 import { HeroIcon } from "./icons/Hero"
 import { CelifiIcon } from "./icons/CelifiLogo"
-
+import { SwapIcon } from "./icons/swap"
 
 export function Footer(){
     return(
-        <div className="h-20 w-screen flex md:justify-center justify-between pr-4  items-center text-sm">
-            <div className="flex flex-col gap-4">
+        
+        <div className="   bg-Celifi-Dark-Gray  h-20 w-screen  flex md:justify-center justify-between pr-4 gap-0 items-center  mr-2 rounded ">
+           <div className="flex flex-col justify-center  items-center  text-xs">
+           <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                    <SwapIcon/>
+                </div>
                 
-                <Button className=" text-Celifi-Yellow" variant="link">Governance</Button>
+                <Button className=" text-Celifi-Gray text-xs " variant="link">Governance</Button>
 
             </div>
            
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-center  items-center  text-xs">
+            <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                    <SwapIcon/>
+                </div>
                 
-                <Button className=" text-Celifi-Yellow" variant="link">Staking</Button>
+                <Button className=" text-Celifi-Gray text-xs" variant="link">Staking</Button>
 
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-center  items-center  text-xs">
+            <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                    <SwapIcon/>
+                </div>
                 
-                <Button className=" text-Celifi-Yellow" variant="link">Dashboard</Button>
+                <Button className="text-Celifi-Gray text-xs " variant="link">Dashboard</Button>
 
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-center  items-center  text-xs">
+                <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                    <SwapIcon/>
+                </div>
                 
-                <Button className=" text-Celifi-Yellow" variant="link">Swap</Button>
+                <Button className=" text-Celifi-Gray  text-xs" variant="link">Swap</Button>
 
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-center  items-center  text-xs">
+            <div className="bg- bg-Celifi-Yellow bg-clip-content rounded-full">
+                    <SwapIcon/>
+                </div>
                 
-                <Button className=" text-Celifi-Yellow" variant="link">Liquidity</Button>
+                
+                <Button className="text-Celifi-Gray text-xs " variant="link">Liquidity</Button>
 
             </div>
 
