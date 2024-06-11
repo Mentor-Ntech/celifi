@@ -10,7 +10,7 @@ const Layout: FC<Props> = ({ children }) => {
     return (
         <>
             <div className="overflow-hidden  h-screen relative  ">
-                <div className="hidden md:block"> <Header/></div>
+                <div className="hidden md:block fixed w-full "> <Header/></div>
                
                 <div className="py-16  max-w-7xl mx-auto  sm:px-6 lg:px-8">
                 
@@ -18,7 +18,7 @@ const Layout: FC<Props> = ({ children }) => {
                    
                    
                 </div>
-                <div className="absolute max-w-7xl     bottom-0">
+                <div className=" max-w-7xl   fixed   bottom-0">
                 <Footer />
                 </div>
                  
