@@ -52,7 +52,7 @@ export function Tokens() {
     <div className="w-full flex justify-between items-center p-4">
       <div>Token</div>
       <div>Amount</div>
-      <div>Price</div>
+      
       <div>USD Value</div>
     </div>
   <ScrollAreaDemo/>
