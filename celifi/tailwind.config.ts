@@ -21,8 +21,10 @@ const config = {
       colors: {
         "Celifi-Primary":"#090D05", 
         "Celifi-Dark-Green":"#020300",   
-        "Celifi-Yellow":"#FCFF52",   
-        "Celifi-Light-Green":"#14190D",    
+        "Celifi-Yellow":"#FCFF52",  
+        "Celifi-Slate-Yellow":"#A8CE77", 
+        "Celifi-Light-Green":"#14190D",  
+        "Celifi-Slate-Green":"#070B02",    
         "Celifi-Gray":"#9AA0A6",
         "Celifi-Dark-Gray":"#090C09",
         border: "hsl(var(--border))",
