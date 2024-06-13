@@ -24,6 +24,7 @@ const Layout: FC<Props> = ({ children }) => {
       </div>
     </>
   );
+
 };
 
 export default Layout;
