@@ -9,12 +9,22 @@ import { SendRequest } from "../SendRequest"
 import { Chart } from "../chart"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TokensTable } from "../TokensTable"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "../ui/separator"
+import { ScrollAreaDemo } from "../tokensAll"
+
+
+
+const tags = Array.from({ length: 50 }).map(
+  (_, i, a) => `v1.2.0-beta.${a.length - i}`
+)
+
 
 
 export function Tokens() {
   
   return (
-      <div className="w-screen min-h-screen ">
+      <div className="w-screen min-h-screen  ">
           
           <div className="flex justify-between md:justify-end items-center w-full pr-4  md:pr-32  border-b-2 border-Celifi-Light-Green">
               <div className="block md:hidden "> <Button className="bg-transparent   hover:bg-transparent"><CelifiIcon/></Button></div>
@@ -27,9 +37,10 @@ export function Tokens() {
             <Chart/>             
 
           </div>
-
+          
           <div className="w-full  flex flex-col text-Celifi-Yellow justify-between  md:justify-center items-center   ">
-          <Tabs defaultValue="account" className="md:w-3/4  w-full">
+          
+          <Tabs defaultValue="tokens" className="md:w-3/4  w-full">
   <TabsList className="flex justify-between items-center bg-transparent ">
     <TabsTrigger className="" value="tokens">Tokens</TabsTrigger>
     <TabsTrigger value="nft">NFT</TabsTrigger>
@@ -38,14 +49,28 @@ export function Tokens() {
    
   </TabsList>
   <TabsContent value="tokens">
-    <TokensTable/>
+    <div className="w-full flex justify-between items-center p-4">
+      <div>Token</div>
+      <div>Amount</div>
+      <div>Price</div>
+      <div>USD Value</div>
+    </div>
+  <ScrollAreaDemo/>
+  {/* <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4"> */}
+    {/* <TokensTable/> */}
+    {/* </ScrollArea> */}
   </TabsContent>
   <TabsContent value="nft">Change your NFT here.</TabsContent>
   <TabsContent value="defi">Change your DEFI here.</TabsContent>
   <TabsContent value="performance">Change your Performance here.</TabsContent>
+  
 </Tabs>
 
+
           </div>
+         
+
+      
         
         
       </div>

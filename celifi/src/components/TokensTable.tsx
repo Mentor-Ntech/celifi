@@ -18,6 +18,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "./ui/separator"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
