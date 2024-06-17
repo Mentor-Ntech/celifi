@@ -5,6 +5,25 @@ import Chart, { CategoryScale } from "chart.js/auto";
 import DoughnutLabel from "chartjs-plugin-doughnutlabel-v3";
 import { Loader2 } from "lucide-react";
 
+// "name": "Celo Europe",
+// "symbol": "cEUR",
+// "address": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73" as `0x${string}`,
+// "decimals": 18,
+// "image": "https://assets.coingecko.com/coins/images/16756/standard/CEUR.png"
+
+export interface  Tokens{
+  name: string;
+  amount: number;
+address :string;
+symbol: string;
+decimals: number;
+image: string;
+
+}
+interface TokenChartProps {
+  TokensData: Tokens[];
+}
+
 export const Data = [
   {
     id: 1,
@@ -40,16 +59,19 @@ export const Data = [
 
 Chart.register(CategoryScale, DoughnutLabel);
 
-const TokenChart = () => {
+const TokenChart = ({ TokensData }: TokenChartProps) => {
   const [isMobile, setIsMobile] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [totalTokenAmount,setTotalTokenAmount]= useState(
+    0
+  )
 
   const [chartData, setChartData] = useState({
     // labels: Data.map((data) => data.year),
     datasets: [
       {
         // label: "Token",
-        data: Data.map((data) => data.availableToken),
+        data: TokensData?.map((data:Tokens) => data.amount),
         backgroundColor: [
           "rgba(75,192,192,1)",
           "#ecf0f1",
@@ -64,7 +86,7 @@ const TokenChart = () => {
         rotation: 270,
       },
     ],
-    labels: Data.map((data) => data.token),
+    labels: TokensData?.map((data) => data.symbol),
   });
 
   const handleResize = () => {
@@ -74,6 +96,8 @@ const TokenChart = () => {
   useEffect(() => {
     handleResize(); // Set the initial state
     window.addEventListener("resize", handleResize);
+    const totalAmount = TokensData.reduce((acc, token) => acc + token.amount, 0);
+    setTotalTokenAmount(totalAmount);
 
     setIsLoading(false);
 
@@ -134,7 +158,7 @@ const TokenChart = () => {
         <div className="max-sm:text-xs sm:text-base md:text-xl text-[#80868B]">
           Total Wallet Value
         </div>
-        <div className="text-md md:text-3xl">$1566.56</div>
+        <div className="text-md md:text-3xl">${totalTokenAmount}</div>
       </div>
     </div>
   );
