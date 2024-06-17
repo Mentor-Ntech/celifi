@@ -8,14 +8,47 @@ import PerformanceChart from "@/components/performance/PerformanceChart";
 import TokensTable from "@/components/token/tokensAll";
 import NftChart from "@/components/nft/nftChart";
 import NFTSTable from "@/components/nft/nfts";
+import  useTokenBalances  from "../token/TokensData";
+import { useAccount } from "wagmi";
+const sampleTokensData = [
+  {
+    tokenName: "BTC",
+    amount: 80000,
+    tokenAddress: "0x1234567890abcdef",
+  },
+  {
+    tokenName: "CUSD",
+    amount: 45677,
+    tokenAddress: "0xabcdef1234567890",
+  },
+  {
+    tokenName: "CELO",
+    amount: 78888,
+    tokenAddress: "0x9876543210fedcba",
+  },
+  {
+    tokenName: "USDT",
+    amount: 90000,
+    tokenAddress: "0xfedcba0987654321",
+  },
+  {
+    tokenName: "ETH",
+    amount: 4300,
+    tokenAddress: "0x0fedcba987654321",
+  },
+];
 
 const TokensPage = () => {
   const [tabValue, setTabValue] = useState("tokens");
+  const { address,isConnected } = useAccount();
+  const addressToUse = isConnected ? address : "0x37c123d902F4383Ee13aE8445E2477a364930394";
+  const { balances, loading } = useTokenBalances(addressToUse as string);
+  console.log("All datas",balances)
   return (
     <>
       <div className="">tokens</div>
-      {tabValue === "tokens" ? (
-        <TokenChart />
+      {tabValue === "tokens"  && !loading ?  (
+       <TokenChart TokensData={balances} />
       )
        :tabValue === "nft" ? (
         <NftChart />
