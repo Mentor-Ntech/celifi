@@ -18,6 +18,8 @@ address :string;
 symbol: string;
 decimals: number;
 image: string;
+usdAmount:number;
+usdvalue:number;
 
 }
 interface TokenChartProps {
@@ -96,7 +98,7 @@ const TokenChart = ({ TokensData }: TokenChartProps) => {
   useEffect(() => {
     handleResize(); // Set the initial state
     window.addEventListener("resize", handleResize);
-    const totalAmount = TokensData.reduce((acc, token) => acc + token.amount, 0);
+    const totalAmount = TokensData.reduce((acc, token) => acc + token.usdAmount, 0);
     setTotalTokenAmount(totalAmount);
 
     setIsLoading(false);
@@ -158,7 +160,7 @@ const TokenChart = ({ TokensData }: TokenChartProps) => {
         <div className="max-sm:text-xs sm:text-base md:text-xl text-[#80868B]">
           Total Wallet Value
         </div>
-        <div className="text-md md:text-3xl">${totalTokenAmount}</div>
+        <div className="text-md md:text-3xl">${totalTokenAmount.toFixed(5)}</div>
       </div>
     </div>
   );

@@ -37,7 +37,8 @@ const TokensTable = () => {
             <TableHeader>
                 <TableRow>
                     <TableHead className="">Token</TableHead>
-                    <TableHead className="text-center">Amount</TableHead>
+                    <TableHead className="text-left">Amount</TableHead>
+                    <TableHead className="text-right">Per usd</TableHead>
                     <TableHead className=" text-right">USD Value</TableHead>
                 </TableRow>
             </TableHeader>
@@ -52,11 +53,14 @@ const TokensTable = () => {
                                 {token.symbol}
                             </div>
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className=" text-left">
                             {token.amount}
                         </TableCell>
                         <TableCell className="text-right">
-                            {token.amount}
+                            {token.usdvalue.toFixed(5)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                            {token.usdAmount.toFixed(5)}
                         </TableCell>
                     </TableRow>
                 ))}
