@@ -3,6 +3,10 @@ import { useReadContract } from "wagmi";
 import ERC20ABI from "../../abi/IERC20.json";
 import { MainnetTokens } from "@/Utils/Tokens";
 import {ethers,Contract} from "ethers"
+const tokentracker = process.env.TokenTracker
+
+import axios from 'axios';
+
 
 export interface  Tokens{
   name: string;
@@ -11,6 +15,8 @@ address :string;
 symbol: string;
 decimals: number;
 image: string;
+usdAmount:number;
+usdvalue:number;
 
 }
 
@@ -20,7 +26,20 @@ const provider = new ethers.JsonRpcProvider(MainentRPC)
 //   provider
 //   )
 
-
+const getPriceInUsd = async (tokenName: string): Promise<number> => {
+  try {
+    const response = await axios.get(`/api/getPrice?tokenName=${tokenName}`);
+    const priceData = response.data[tokenName];
+    if (priceData && priceData.usd) {
+      return priceData.usd;
+    } else {
+      throw new Error(`Price data not found for token: ${tokenName}`);
+    }
+  } catch (error) {
+    console.error(`Error fetching price for ${tokenName}:`, error);
+    return 0;
+  }
+};
 
 const createContract =async (tokenAddress:string)=>{
   const celoTokenContract = new Contract(tokenAddress, ERC20ABI
@@ -32,7 +51,7 @@ const createContract =async (tokenAddress:string)=>{
 const getBalance = async(tokenAddress:string,userAddress:string)=>{
   const celoTokenContract = await createContract(tokenAddress)
  const  balance  = await celoTokenContract.balanceOf(userAddress)
- return  (Number(balance.toString())/ 10**18).toFixed(4)
+ return  (Number(balance.toString())/ 10**18).toFixed(5)
 
  
 
@@ -53,6 +72,8 @@ const useTokenBalances = (userAddress:string) => {
         try {
           //const amount =  balance(token.address, 0);
           const bal = await getBalance(token.address,userAddress)
+          const price = await getPriceInUsd(token.name)
+          console.log("price price",price)
           console.log("data data",token.address)
 
 
@@ -63,6 +84,9 @@ const useTokenBalances = (userAddress:string) => {
             address: token.address as string,
             decimals: token.decimals,
             image: token.image,
+            usdAmount:(Number(bal)*price),
+            usdvalue:price
+            
           };
         } catch (error) {
           console.error(`Error fetching balance for ${token.symbol}:`, error);
@@ -73,6 +97,8 @@ const useTokenBalances = (userAddress:string) => {
               address: token.address as string,
               decimals: token.decimals,
               image: token.image,
+              usdAmount:0,
+              usdvalue:0,
           };
         }
       });
