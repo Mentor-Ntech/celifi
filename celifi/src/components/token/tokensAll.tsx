@@ -20,17 +20,17 @@ const TokensTable = () => {
     const { address,isConnected } = useAccount();
     const addressToUse = isConnected ? address : "0x37c123d902F4383Ee13aE8445E2477a364930394";
     const { balances, loading } = useTokenBalances(addressToUse as string);
-    const balance = (tokenAddress: `0x${string}`, index: number) => {
-        const data = useReadContract({
-            address: tokenAddress,
-            abi: ERC20ABI,
-            functionName: 'balanceOf',
-            args: ["0x37c123d902F4383Ee13aE8445E2477a364930394"]
-        });
+    // const balance = (tokenAddress: `0x${string}`, index: number) => {
+    //     const data = useReadContract({
+    //         address: tokenAddress,
+    //         abi: ERC20ABI,
+    //         functionName: 'balanceOf',
+    //         args: ["0x37c123d902F4383Ee13aE8445E2477a364930394"]
+    //     });
         
         
-        return Number(data.data as string);
-    }
+    //     return Number(data.data as string);
+    // }
 
     return (
         <Table className="text-Celifi-Gray">

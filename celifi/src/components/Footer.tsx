@@ -7,8 +7,10 @@ import { LiquidityIcon } from "./icons/liquidity"
 import { StakingIcon } from "./icons/Staking"
 import { DashboardIcon } from "./icons/Dashboard"
 import { GovernanceIcon } from "./icons/Governance"
+import { useRouter } from "next/router"
 
 export function Footer(){
+    const router = useRouter()
     return(
         
         <div className="   bg-Celifi-Dark-Gray  h-20 w-screen  flex md:justify-center justify-between pr-4 gap-0 items-center  mr-2 rounded ">
@@ -34,7 +36,7 @@ export function Footer(){
             <DashboardIcon/>
                 </div>
                 
-                <Button className="text-Celifi-Yellow text-xs " variant="link">Dashboard</Button>
+                <Button  onClick={()=>router.push("/dashboard")} className="text-Celifi-Yellow text-xs " variant="link">Dashboard</Button>
 
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
