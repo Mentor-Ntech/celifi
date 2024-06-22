@@ -22,8 +22,10 @@ usdAmount:number;
 usdvalue:number;
 
 }
+
 interface TokenChartProps {
   TokensData: Tokens[];
+  userAddress:`0x${string}` | undefined
 }
 
 export const Data = [
@@ -61,35 +63,51 @@ export const Data = [
 
 Chart.register(CategoryScale, DoughnutLabel);
 
-const TokenChart = ({ TokensData }: TokenChartProps) => {
+const TokenChart = ({ TokensData,userAddress }: TokenChartProps) => {
   const [isMobile, setIsMobile] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [totalTokenAmount,setTotalTokenAmount]= useState(
     0
   )
-
-  const [chartData, setChartData] = useState({
-    // labels: Data.map((data) => data.year),
-    datasets: [
-      {
-        // label: "Token",
-        data: TokensData?.map((data:Tokens) => data.amount),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-        cutout: "70%",
-        circumference: 180,
-        rotation: 270,
-      },
-    ],
-    labels: TokensData?.map((data) => data.symbol),
+  const [chartData, setChartData] = useState<{
+    datasets: {
+      data: number[];
+      backgroundColor: string[];
+      borderColor: string;
+      borderWidth: number;
+      cutout: string;
+      circumference: number;
+      rotation: number;
+    }[];
+    labels: string[];
+  }>({
+    datasets: [],
+    labels: [],
   });
+
+  // const [chartData, setChartData] = useState({
+  //   // labels: Data.map((data) => data.year),
+  //   datasets: [
+  //     {
+  //       // label: "Token",
+  //       data: TokensData?.map((data:Tokens) => data.amount),
+  //       backgroundColor: [
+  //         "rgba(75,192,192,1)",
+  //         "#ecf0f1",
+  //         "#50AF95",
+  //         "#f3ba2f",
+  //         "#2a71d0",
+  //       ],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //       cutout: "70%",
+  //       circumference: 180,
+  //       rotation: 270,
+  //     },
+  //   ],
+  //   labels: TokensData?.map((data) => data.symbol),
+    
+  // });
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
@@ -98,8 +116,8 @@ const TokenChart = ({ TokensData }: TokenChartProps) => {
   useEffect(() => {
     handleResize(); // Set the initial state
     window.addEventListener("resize", handleResize);
-    const totalAmount = TokensData.reduce((acc, token) => acc + token.usdAmount, 0);
-    setTotalTokenAmount(totalAmount);
+    
+   
 
     setIsLoading(false);
 
@@ -107,6 +125,41 @@ const TokenChart = ({ TokensData }: TokenChartProps) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(()=>{
+    if (!userAddress) {
+      setChartData({
+        datasets: [],
+        labels: [],
+      });
+      const totalAmount =  0 ;
+    setTotalTokenAmount(totalAmount);
+    return
+      
+    }
+    const totalAmount = TokensData.reduce((acc, token) => acc + token.usdAmount, 0);
+    setTotalTokenAmount(totalAmount);
+    setChartData({
+      datasets: [
+        {
+          data: TokensData.map((data) => data.amount),
+          backgroundColor: [
+            "rgba(75,192,192,1)",
+            "#ecf0f1",
+            "#50AF95",
+            "#f3ba2f",
+            "#2a71d0",
+          ],
+          borderColor: "black",
+          borderWidth: 2,
+          cutout: "70%",
+          circumference: 180,
+          rotation: 270,
+        },
+      ],
+      labels: TokensData.map((data) => data.symbol),
+    });
+   
+  },[userAddress,chartData,TokensData])
   
   if (isLoading)
     return (

@@ -66,6 +66,11 @@ const useTokenBalances = (userAddress:string) => {
   
 
   useEffect(() => {
+    if (!userAddress) {
+      setBalances([]);
+      setLoading(false);
+      return;
+    }
     const fetchBalances = async () => {
       setLoading(true);
       const balancePromises = MainnetTokens.map(async (token,index) => {
