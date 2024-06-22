@@ -32,7 +32,7 @@ const NoWallet =()=>{
       </AlertDescription>
     </Alert>
     )
-
+    
 }
 
 export default NoWallet;  //exporting the component

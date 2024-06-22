@@ -19,7 +19,7 @@ export function Footer(){
                     <GovernanceIcon/>
                 </div>
                 
-                <Button className=" text-Celifi-Gray text-xs " variant="link">Governance</Button>
+                <Button onClick={()=>router.push("/governance")} className=" text-Celifi-Gray text-xs " variant="link">Governance</Button>
 
             </div>
            
@@ -28,7 +28,7 @@ export function Footer(){
                     <StakingIcon/>
                 </div>
                 
-                <Button className=" text-Celifi-Gray text-xs" variant="link">Staking</Button>
+                <Button onClick={()=>router.push("/staking")} className=" text-Celifi-Gray text-xs" variant="link">Staking</Button>
 
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
@@ -44,7 +44,7 @@ export function Footer(){
                     <SwapIcon/>
                 </div>
                 
-                <Button className=" text-Celifi-Gray  text-xs" variant="link">Swap</Button>
+                <Button onClick={()=>router.push("/swap")} className=" text-Celifi-Gray  text-xs" variant="link">Swap</Button>
 
             </div>
             <div className="flex flex-col justify-center  items-center  text-xs">
@@ -53,7 +53,7 @@ export function Footer(){
                 </div>
                 
                 
-                <Button className="text-Celifi-Gray text-xs " variant="link">Liquidity</Button>
+                <Button onClick={()=>router.push("/liquidity")} className="text-Celifi-Gray text-xs " variant="link">Liquidity</Button>
 
             </div>
 
