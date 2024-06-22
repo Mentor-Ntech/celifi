@@ -41,14 +41,14 @@ const sampleTokensData = [
 const TokensPage = () => {
   const [tabValue, setTabValue] = useState("tokens");
   const { address,isConnected } = useAccount();
-  const addressToUse = isConnected ? address : "0x37c123d902F4383Ee13aE8445E2477a364930394";
+  const addressToUse =  address ;
   const { balances, loading } = useTokenBalances(addressToUse as string);
   console.log("All datas",balances)
   return (
     <>
       <div className="">tokens</div>
       {tabValue === "tokens"  && !loading ?  (
-       <TokenChart TokensData={balances} />
+       <TokenChart userAddress={address} TokensData={balances}  />
       )
        :tabValue === "nft" ? (
         <NftChart />
