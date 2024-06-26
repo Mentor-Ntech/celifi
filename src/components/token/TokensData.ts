@@ -58,7 +58,7 @@ const createsignerContract =async (tokenAddress:string,signer:ContractRunner)=>{
 }
 
 const getBalance = async(tokenAddress:string,userAddress:string)=>{
-  const celoTokenContract = await createContract(tokenAddress)
+  const celoTokenContract = (await createContract(tokenAddress))
  const  balance  = await celoTokenContract.balanceOf(userAddress)
  return  (Number(balance.toString())/ 10**18).toFixed(5)
 
@@ -71,7 +71,8 @@ const getBalance = async(tokenAddress:string,userAddress:string)=>{
 const getsigner =async():Promise<Signer>=>{
   
   
-  const signer = provider.getSigner();
+  
+  const signer =await provider.getSigner();
   return signer
 }
 
@@ -79,7 +80,7 @@ const getsigner =async():Promise<Signer>=>{
 
 export const sendToken = async(tokenAddress:string,externalAddress:string,amount:bigint):Promise<string>=>{
   const signer = await getsigner()
-  const celoTokenContract = await createsignerContract(tokenAddress,signer)
+  const celoTokenContract = (await createsignerContract(tokenAddress,signer))
   const tx = await celoTokenContract.transfer(externalAddress,amount)
   await tx.wait()
   return tx.hash

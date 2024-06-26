@@ -30,6 +30,7 @@ import {
 import useTokenBalances from "./TokensData";
 import NoWallet from "../NoWalletConnection";
 import { sendToken } from "./TokensData";
+import { stringToBigint } from "@/hooks/stringToBigint";
 
 
 const TokensTable = () => {
@@ -37,9 +38,27 @@ const TokensTable = () => {
     const [opendialog,setOpendialog] = React.useState<boolean>(false);
     const [externalAddress,setExternalAddres] = React.useState<string>("")
     const [amount,setAmount] = React.useState<string>("")
+    const [tokenAddress,setTokenAddress] = React.useState<string>("")
     const addressToUse =  address ;
      const { balances, loading } = useTokenBalances(addressToUse as string);
     // const { balances, loading } = isConnected ? useTokenBalances(address as string) : { balances: [], loading: false };
+
+    const handlesend = async()=>{
+        if(amount && externalAddress && tokenAddress){
+            const amountBigint = stringToBigint(amount);
+            await sendToken(tokenAddress,externalAddress,amountBigint);
+                setOpendialog(false);
+                setAmount("");
+                setExternalAddres("");
+                }else{
+                    console.log("address",externalAddress)
+                    console.log("amount",amount)
+                    console.log("tokenAddress",tokenAddress)
+                    alert("Please fill all fields");
+
+                }
+
+    }
 
     return (
         <div className="text-Celifi-Gray">
@@ -49,14 +68,14 @@ const TokensTable = () => {
   <AlertDialogContent >
     <AlertDialogHeader>
       <AlertDialogTitle>Sending ${40} </AlertDialogTitle>
-      <Input className="text-center" placeholder="0x566433...8565"/>
-      <Input className="text-center" placeholder="10"/>
+      <Input className="text-center" placeholder="0x566433...8565" onChange={(e)=> setExternalAddres(e.target.value)}/>
+      <Input className="text-center" placeholder="10" onChange={(e)=> setAmount(e.target.value)}/>
 
     </AlertDialogHeader>
     <AlertDialogFooter >
         <div className="flex justify-between items-center w-full ">
         <Button onClick={()=>setOpendialog(false)}>Cancel</Button>
-        <Button>Continue</Button>
+        <Button onClick={handlesend}>Continue</Button>
         </div>
     
       
@@ -81,7 +100,10 @@ const TokensTable = () => {
                     </TableHeader>
                     <TableBody className="w-full">
                         {balances.map((token, index) => (
-                            <TableRow className="max-md:text-xs" onClick={()=>setOpendialog(true)} key={token.address}>
+                            <TableRow className="max-md:text-xs" onClick={() => {
+                                setOpendialog(true);
+                                setTokenAddress(token.address);
+                              }} key={token.address}>
                                 <TableCell>
                                     <div className="flex gap-2">
                                         <div className="bg-Celifi-Gray bg-clip-content rounded-full">
