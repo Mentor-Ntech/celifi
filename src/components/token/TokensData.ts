@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useReadContract } from "wagmi";
+import { useReadContract,useWriteContract } from "wagmi";
 import ERC20ABI from "../../abi/IERC20.json";
 import { MainnetTokens } from "@/Utils/Tokens";
 import {ethers,Contract, ContractRunner, Signer} from "ethers"
@@ -78,15 +78,6 @@ const getsigner =async():Promise<Signer>=>{
 
 //send Tokens to external address
 
-export const sendToken = async(tokenAddress:string,externalAddress:string,amount:bigint):Promise<string>=>{
-  const signer = await getsigner()
-  const celoTokenContract = (await createsignerContract(tokenAddress,signer))
-  const tx = await celoTokenContract.transfer(externalAddress,amount)
-  await tx.wait()
-  return tx.hash
-
-
-}
 
 
 
@@ -94,6 +85,23 @@ const useTokenBalances = (userAddress:string) => {
   const [balances, setBalances] = useState<Tokens[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const {writeContractAsync:send} = useWriteContract()
+
+  const sendToken = async(tokenAddress:`0x${string}`,externalAddress:string,amount:bigint):Promise<`0x${string}`|undefined>=>{
+    try{
+      const tx = await send({
+        abi:ERC20ABI,
+        address:tokenAddress,
+        functionName:"transfer",
+        args:[externalAddress,amount]
+      })
+      return tx
+
+    }catch(err){
+      console.log(err)
+    }
+
+  }
   
 
   useEffect(() => {
@@ -147,7 +155,7 @@ const useTokenBalances = (userAddress:string) => {
     fetchBalances();
   }, []);
 
-  return { balances, loading };
+  return { balances, loading,sendToken };
 };
 
 export default useTokenBalances;

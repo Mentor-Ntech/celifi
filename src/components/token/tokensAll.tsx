@@ -29,7 +29,7 @@ import {
   
 import useTokenBalances from "./TokensData";
 import NoWallet from "../NoWalletConnection";
-import { sendToken } from "./TokensData";
+
 import { stringToBigint } from "@/hooks/stringToBigint";
 
 
@@ -40,13 +40,13 @@ const TokensTable = () => {
     const [amount,setAmount] = React.useState<string>("")
     const [tokenAddress,setTokenAddress] = React.useState<string>("")
     const addressToUse =  address ;
-     const { balances, loading } = useTokenBalances(addressToUse as string);
+     const { balances, loading,sendToken } = useTokenBalances(addressToUse as string);
     // const { balances, loading } = isConnected ? useTokenBalances(address as string) : { balances: [], loading: false };
 
     const handlesend = async()=>{
         if(amount && externalAddress && tokenAddress){
             const amountBigint = stringToBigint(amount);
-            await sendToken(tokenAddress,externalAddress,amountBigint);
+            await sendToken(tokenAddress as `0x${string}`,externalAddress,amountBigint);
                 setOpendialog(false);
                 setAmount("");
                 setExternalAddres("");
