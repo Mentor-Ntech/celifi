@@ -39,6 +39,7 @@ const TokensTable = () => {
     const [externalAddress,setExternalAddres] = React.useState<string>("")
     const [amount,setAmount] = React.useState<string>("")
     const [tokenAddress,setTokenAddress] = React.useState<string>("")
+    const [tokenSymbol,setTokenSymbol] = React.useState<string>("")
     const addressToUse =  address ;
      const { balances, loading,sendToken } = useTokenBalances(addressToUse as string);
     // const { balances, loading } = isConnected ? useTokenBalances(address as string) : { balances: [], loading: false };
@@ -67,7 +68,7 @@ const TokensTable = () => {
   
   <AlertDialogContent >
     <AlertDialogHeader>
-      <AlertDialogTitle>Sending ${40} </AlertDialogTitle>
+      <AlertDialogTitle>Sending {tokenSymbol} </AlertDialogTitle>
       <Input className="text-center" placeholder="0x566433...8565" onChange={(e)=> setExternalAddres(e.target.value)}/>
       <Input className="text-center" placeholder="10" onChange={(e)=> setAmount(e.target.value)}/>
 
@@ -103,6 +104,7 @@ const TokensTable = () => {
                             <TableRow className="max-md:text-xs" onClick={() => {
                                 setOpendialog(true);
                                 setTokenAddress(token.address);
+                                setTokenSymbol(token.symbol)
                               }} key={token.address}>
                                 <TableCell>
                                     <div className="flex gap-2">
