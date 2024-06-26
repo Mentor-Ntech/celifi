@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useReadContract } from "wagmi";
 import ERC20ABI from "../../abi/IERC20.json";
 import { MainnetTokens } from "@/Utils/Tokens";
-import {ethers,Contract} from "ethers"
+import {ethers,Contract, ContractRunner, Signer} from "ethers"
 const tokentracker = process.env.TokenTracker
 
 import axios from 'axios';
@@ -41,9 +41,18 @@ const getPriceInUsd = async (tokenName: string): Promise<number> => {
   }
 };
 
+//reading only
+
 const createContract =async (tokenAddress:string)=>{
   const celoTokenContract = new Contract(tokenAddress, ERC20ABI
     ,provider
+    )
+    return celoTokenContract
+}
+//writing a transaction
+const createsignerContract =async (tokenAddress:string,signer:ContractRunner)=>{
+  const celoTokenContract = new Contract(tokenAddress, ERC20ABI
+    ,signer
     )
     return celoTokenContract
 }
@@ -54,6 +63,27 @@ const getBalance = async(tokenAddress:string,userAddress:string)=>{
  return  (Number(balance.toString())/ 10**18).toFixed(5)
 
  
+
+}
+
+//get signer
+
+const getsigner =async():Promise<Signer>=>{
+  
+  
+  const signer = provider.getSigner();
+  return signer
+}
+
+//send Tokens to external address
+
+export const sendToken = async(tokenAddress:string,externalAddress:string,amount:bigint):Promise<string>=>{
+  const signer = await getsigner()
+  const celoTokenContract = await createsignerContract(tokenAddress,signer)
+  const tx = await celoTokenContract.transfer(externalAddress,amount)
+  await tx.wait()
+  return tx.hash
+
 
 }
 
