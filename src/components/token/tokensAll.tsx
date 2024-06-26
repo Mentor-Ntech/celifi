@@ -13,18 +13,58 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
+  import { Input } from "../ui/input";
+  import { Button } from "../ui/button";
+  
 import useTokenBalances from "./TokensData";
 import NoWallet from "../NoWalletConnection";
+import { sendToken } from "./TokensData";
 
 
 const TokensTable = () => {
     const { address,isConnected } = useAccount();
+    const [opendialog,setOpendialog] = React.useState<boolean>(false);
+    const [externalAddress,setExternalAddres] = React.useState<string>("")
+    const [amount,setAmount] = React.useState<string>("")
     const addressToUse =  address ;
      const { balances, loading } = useTokenBalances(addressToUse as string);
     // const { balances, loading } = isConnected ? useTokenBalances(address as string) : { balances: [], loading: false };
 
     return (
         <div className="text-Celifi-Gray">
+            <div className="w-5/6">
+            <AlertDialog  open={opendialog} >
+  
+  <AlertDialogContent >
+    <AlertDialogHeader>
+      <AlertDialogTitle>Sending ${40} </AlertDialogTitle>
+      <Input className="text-center" placeholder="0x566433...8565"/>
+      <Input className="text-center" placeholder="10"/>
+
+    </AlertDialogHeader>
+    <AlertDialogFooter >
+        <div className="flex justify-between items-center w-full ">
+        <Button onClick={()=>setOpendialog(false)}>Cancel</Button>
+        <Button>Continue</Button>
+        </div>
+    
+      
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+
+            </div>
             {!isConnected ? (
                 <div className="w-full flex justify-center items-center">
                     <NoWallet />
@@ -41,7 +81,7 @@ const TokensTable = () => {
                     </TableHeader>
                     <TableBody className="w-full">
                         {balances.map((token, index) => (
-                            <TableRow className="max-md:text-xs" key={token.address}>
+                            <TableRow className="max-md:text-xs" onClick={()=>setOpendialog(true)} key={token.address}>
                                 <TableCell>
                                     <div className="flex gap-2">
                                         <div className="bg-Celifi-Gray bg-clip-content rounded-full">
