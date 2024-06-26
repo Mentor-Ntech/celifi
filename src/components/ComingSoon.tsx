@@ -12,7 +12,7 @@ import {
   import { Button } from "@/components/ui/button"
   import { Card,CardContent,CardDescription,CardFooter } from "./ui/card"
   
-  export function ComingSoon() {
+  const ComingSoon=()=>{
     return (
         <div className="flex justify-center items-center h-full  w-full">
              <Card className="w-1/2 h-48 flex justify-center items-center bg-Celifi-Yellow" >
@@ -30,4 +30,5 @@ import {
      
     )
   }
+  export default ComingSoon
   

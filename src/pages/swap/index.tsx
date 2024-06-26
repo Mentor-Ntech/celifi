@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { Inter,Noto_Sans } from "next/font/google";
-import { CommandDemo } from "@/components/pages/LandingPage";
-import TokensPage from "@/components/pages/Dashboard";
+
 const inter = Inter({ subsets: ["latin"] });
-import { ComingSoon } from "@/components/ComingSoon";
+import ComingSoon from "@/components/ComingSoon";
 
 
 export default function Home() {
