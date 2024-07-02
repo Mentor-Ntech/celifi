@@ -15,7 +15,7 @@ export const Data = [
 
 Chart.register(CategoryScale, DoughnutLabel);
 
-const DefiChart = () => {
+ const DefiChart = () => {
   
   const [isMobile, setIsMobile] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
