@@ -159,7 +159,7 @@ const TokenChart = ({ TokensData,userAddress }: TokenChartProps) => {
       labels: TokensData.map((data) => data.symbol),
     });
    
-  },[userAddress,chartData,TokensData])
+  },[userAddress,TokensData])
   
   if (isLoading)
     return (
