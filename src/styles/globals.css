@@ -101,8 +101,8 @@
 }
 
 
-[data-radix-popper-content-wrapper], [cmdk-input-wrapper], [cmdk-root] {
-  pointer-events: all;
+[data-radix-popper-content-wrapper] {
+  pointer-events: auto;
 }
 /* body {
   pointer-events: all;

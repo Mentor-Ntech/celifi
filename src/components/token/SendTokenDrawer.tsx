@@ -1,13 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import QrCode from "./QrCode";
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
-import { Copy } from "lucide-react";
 import { Input } from "../ui/input";
 import SendTokenSelectDrawer from "./SendTokenSelectDrawer";
-import { SelectTokenPopover } from "./SelectTokenPopover";
 const { ethers } = require("ethers");
 
 interface SendTokenDrawerProps {
@@ -83,6 +80,7 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
               setIsSendTokenSelectOpen={setIsSendTokenSelectOpen}
               setSendDrawerOpen={setSendDrawerOpen}
               sendDrawerOpen={sendDrawerOpen}
+              sendToWalletAddr={sendToWalletAddr}
               addressToUse={addressToUse as string}
             />
           )}
