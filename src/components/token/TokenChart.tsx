@@ -5,12 +5,6 @@ import Chart, { CategoryScale } from "chart.js/auto";
 import DoughnutLabel from "chartjs-plugin-doughnutlabel-v3";
 import { Loader2 } from "lucide-react";
 
-// "name": "Celo Europe",
-// "symbol": "cEUR",
-// "address": "0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73" as `0x${string}`,
-// "decimals": 18,
-// "image": "https://assets.coingecko.com/coins/images/16756/standard/CEUR.png"
-
 export interface  Tokens{
   name: string;
   amount: number;
@@ -159,7 +153,7 @@ const TokenChart = ({ TokensData,userAddress }: TokenChartProps) => {
       labels: TokensData.map((data) => data.symbol),
     });
    
-  },[userAddress,chartData,TokensData])
+  },[userAddress,TokensData])
   
   if (isLoading)
     return (
