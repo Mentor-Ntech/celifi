@@ -61,6 +61,9 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      backgroundImage: {
+        'custom-button-gradient': 'linear-gradient(90deg, rgba(197, 200, 62, 0.75) 0%, rgba(121, 159, 70, 0.75) 100%)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
