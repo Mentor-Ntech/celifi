@@ -11,8 +11,9 @@ import NftChart from "@/components/nft/nftChart";
 import NFTSTable from "@/components/nft/nfts";
 import  useTokenBalances  from "../token/TokensData";
 import { useAccount } from "wagmi";
+//import('@/components/token/TokensAll')
 
-const TokensTable = dynamic(() => import('@/components/token/TokensAll'), { 
+const TokensTable = dynamic(() => import("../token/tokensAll"), { 
   ssr: false,
   loading: () => <p>Loading...</p> // Optional loading component
 })
