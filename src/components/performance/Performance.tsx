@@ -8,8 +8,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getPriceChart } from "../token/TokensData";
+
 
 const Performance = () => {
+//   const tokenName = "celo";
+// const from = 1622505600; // Example timestamp
+// const to = 1625097600; // Example timestamp
+// const interval = "daily";
+// getPriceChart(tokenName, from, to, interval)
+//   .then(data => {
+//     console.log("Price chart data:", data);
+//   })
+//   .catch(error => {
+//     console.error("Error:", error);
+//   });
+
   return (
     <div>
       <div className="flex justify-end text-[#62665C]">

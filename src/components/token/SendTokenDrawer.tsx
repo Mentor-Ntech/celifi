@@ -69,7 +69,7 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
                 onClick={() => setIsSendTokenSelectOpen(true)}
               >
                 Send to{" "}
-                <span className="text-green-300">"{sendToWalletAddr}"</span>
+                <span className="text-green-300">&quot;{sendToWalletAddr}&quot;</span>
               </div>
             ) : !isSendToAddrValid && sendToWalletAddr.length ? (
               <div className="break-all text-xs">Input valid address</div>

@@ -86,8 +86,8 @@ export function SelectTokenPopover({
 					<CommandInput placeholder="Search token..." />
 					<CommandEmpty>No tokensBalance found.</CommandEmpty>
 					<CommandGroup>
-						{tokensBalances.map((tokensBalance) => (
-							<CommandList>
+						{tokensBalances.map((tokensBalance,index) => (
+							<CommandList key={index}>
 								<CommandItem
 									key={tokensBalance.symbol}
 									value={`${tokensBalance.symbol} ${tokensBalance.name}`}
