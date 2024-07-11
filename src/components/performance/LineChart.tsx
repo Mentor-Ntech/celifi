@@ -40,25 +40,26 @@ export const options = {
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
-const data = () => ({
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-  datasets: [
-    {
-      label: "First dataset",
-      data: [0, 3, 10, 9, 19, 15, 8, 15, 20],
-      fill: "start",
-      backgroundColor: (context: ScriptableContext<"line">) => {
-        const ctx = context.chart.ctx;
-        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, "rgba(252, 255, 82, 1)");
-        gradient.addColorStop(1, "rgba(71, 101, 32, 0)");
-        return gradient;
-      },
-      borderColor: "rgba(252, 255, 82, 1)",
-    },
-  ],
-});
+
 
 export function LineChart() {
+  const data = () => ({
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    datasets: [
+      {
+        label: "First dataset",
+        data: [0, 3, 10, 9, 19, 15, 8, 15, 20],
+        fill: "start",
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+          gradient.addColorStop(0, "rgba(252, 255, 82, 1)");
+          gradient.addColorStop(1, "rgba(71, 101, 32, 0)");
+          return gradient;
+        },
+        borderColor: "rgba(252, 255, 82, 1)",
+      },
+    ],
+  });
   return <Line options={options} data={data()} />;
 }

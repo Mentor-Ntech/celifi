@@ -121,6 +121,7 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 			}
 		} catch (error) {
 			console.error(error);
+			
 			toast.error("Failed to send tokens. Please try again.");
 		} finally {
 			setCanSend(true);

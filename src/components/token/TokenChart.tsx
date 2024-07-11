@@ -135,7 +135,7 @@ const TokenChart = ({ TokensData,userAddress }: TokenChartProps) => {
     setChartData({
       datasets: [
         {
-          data: TokensData.map((data) => data.amount),
+          data: TokensData.map((data) => data.usdAmount),
           backgroundColor: [
             "rgba(75,192,192,1)",
             "#ecf0f1",

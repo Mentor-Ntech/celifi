@@ -4,6 +4,8 @@ import ERC20ABI from "../../abi/IERC20.json";
 import { MainnetTokens } from "@/Utils/Tokens";
 import { ethers, Contract, ContractRunner, Signer } from "ethers";
 const tokentracker = process.env.TokenTracker;
+import { TokenChartData } from "@/types/data-type";
+import { errorMessage } from "@/types/data-type";
 
 import axios from "axios";
 
@@ -39,6 +41,25 @@ const getPriceInUsd = async (tokenName: string): Promise<number> => {
 	}
 };
 
+
+export const getPriceChart = async (tokenName: string, from: number, to: number, interval: string): Promise<TokenChartData | errorMessage> => {
+	try {
+	  const response = await axios.get(`/api/tokenHistory`, {
+		params: {
+		  tokenName,
+		  from,
+		  to,
+		  interval
+		}
+	  });
+  
+	  return response.data
+	} catch (error) {
+	  console.error(`Error fetching price for ${tokenName}:`, error);
+	  throw error
+	}
+  };
+
 //reading only
 
 const createContract = async (tokenAddress: string) => {
@@ -73,7 +94,7 @@ const useTokenBalances = (userAddress: string) => {
 	const [balances, setBalances] = useState<Tokens[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	const { writeContractAsync: send } = useWriteContract();
+	const { writeContractAsync: send ,error} = useWriteContract();
 
 	const sendToken = async (
 		tokenAddress: `0x${string}`,
@@ -89,10 +110,10 @@ const useTokenBalances = (userAddress: string) => {
 			});
 
 			console.log(tx);
-			const receipt = await provider.waitForTransaction(tx);
+			//const receipt = await provider.waitForTransaction(tx);
 
 			// Check the transaction status
-			if (receipt && receipt.status === 1) {
+			if (!error) {
 				console.log("Transaction successful!");
 				return true;
 			} else {
