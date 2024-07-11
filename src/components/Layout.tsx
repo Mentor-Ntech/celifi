@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 
 import Header from "./Header";
 import { Footer } from "./Footer";
+import { Toaster } from "react-hot-toast";
 
 interface Props {
   children: ReactNode;
@@ -10,6 +11,8 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <div className="  min-h-screen   ">
+        <Toaster />
+
         <div className="hidden md:block">
           {" "}
           <Header />
@@ -24,7 +27,6 @@ const Layout: FC<Props> = ({ children }) => {
       </div>
     </>
   );
-
 };
 
 export default Layout;

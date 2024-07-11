@@ -1,3 +1,4 @@
+"use client"
 import TokenChart from "@/components/token/TokenChart";
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -5,38 +6,17 @@ import DefiChart from "@/components/defi/DefiChart";
 import Defi from "@/components/defi/Defi";
 import Performance from "@/components/performance/Performance";
 import PerformanceChart from "@/components/performance/PerformanceChart";
-import TokensTable from "@/components/token/tokensAll";
+import dynamic from 'next/dynamic'
 import NftChart from "@/components/nft/nftChart";
 import NFTSTable from "@/components/nft/nfts";
 import  useTokenBalances  from "../token/TokensData";
 import { useAccount } from "wagmi";
-const sampleTokensData = [
-  {
-    tokenName: "BTC",
-    amount: 80000,
-    tokenAddress: "0x1234567890abcdef",
-  },
-  {
-    tokenName: "CUSD",
-    amount: 45677,
-    tokenAddress: "0xabcdef1234567890",
-  },
-  {
-    tokenName: "CELO",
-    amount: 78888,
-    tokenAddress: "0x9876543210fedcba",
-  },
-  {
-    tokenName: "USDT",
-    amount: 90000,
-    tokenAddress: "0xfedcba0987654321",
-  },
-  {
-    tokenName: "ETH",
-    amount: 4300,
-    tokenAddress: "0x0fedcba987654321",
-  },
-];
+//import('@/components/token/TokensAll')
+
+const TokensTable = dynamic(() => import("../token/tokensAll"), { 
+  ssr: false,
+  loading: () => <p>Loading...</p> // Optional loading component
+})
 
 const TokensPage = () => {
   const [tabValue, setTabValue] = useState("tokens");
