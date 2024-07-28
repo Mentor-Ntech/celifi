@@ -1,14 +1,12 @@
 //const { Mento } = require("@mento-protocol/mento-sdk");
 //const { providers } = require("ethers");
 
-interface TradePairs{
-    
-}
 
 
 import { providers } from "ethers";
 import {Mento} from "@mento-protocol/mento-sdk"
 import { MainentRPC,provider } from "@/components/token/TokensData";
+
 
 export const getAllTokenTradePairs = async()=>{
     const mento = await Mento.create(provider);
