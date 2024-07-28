@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useReadContract, useWriteContract } from "wagmi";
 import ERC20ABI from "../../abi/IERC20.json";
 import { MainnetTokens } from "@/Utils/Tokens";
-import { ethers, Contract, ContractRunner, Signer } from "ethers";
+import { ethers, Contract, Signer } from "ethers";
 const tokentracker = process.env.TokenTracker;
 import { TokenChartData } from "@/types/data-type";
 import { errorMessage } from "@/types/data-type";
@@ -20,8 +20,8 @@ export interface Tokens {
 	usdvalue: number;
 }
 
-const MainentRPC = "https://forno.celo.org";
-const provider = new ethers.JsonRpcProvider(MainentRPC);
+export const MainentRPC = "https://forno.celo.org";
+ export const provider = new ethers.providers.JsonRpcProvider(MainentRPC);
 // const celoTokenContract = new Contract(MainnetTokens.CELO.address, ERC20ABI,
 //   provider
 //   )
@@ -67,13 +67,13 @@ const createContract = async (tokenAddress: string) => {
 	return celoTokenContract;
 };
 //writing a transaction
-const createsignerContract = async (
-	tokenAddress: string,
-	signer: ContractRunner
-) => {
-	const celoTokenContract = new Contract(tokenAddress, ERC20ABI, signer);
-	return celoTokenContract;
-};
+// const createsignerContract = async (
+// 	tokenAddress: string,
+// 	signer: Co
+// ) => {
+// 	const celoTokenContract = new Contract(tokenAddress, ERC20ABI, signer);
+// 	return celoTokenContract;
+// };
 
 const getBalance = async (tokenAddress: string, userAddress: string) => {
 	const celoTokenContract = await createContract(tokenAddress);
