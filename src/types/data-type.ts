@@ -15,3 +15,11 @@ export interface tokensQuotes{
     tokenOut:`0x${string}`,
     tokenAmount:string 
 }
+
+export interface tokensSwap{
+    tokenIn:`0x${string}`,
+
+    tokenOut:`0x${string}`,
+    tokenInAmount:string ,
+    userAddress:`0x${string}`
+}
