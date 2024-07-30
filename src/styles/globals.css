@@ -104,6 +104,11 @@
 [data-radix-popper-content-wrapper] {
   pointer-events: auto;
 }
+
+.shadcn-input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
 /* body {
   pointer-events: all;
 } */
