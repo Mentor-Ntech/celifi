@@ -1,3 +1,5 @@
+import { BigNumber } from "ethers";
+
 export  interface TokenChartData{
     prices?:[number,number][],
     market_caps?:[number,number][],
@@ -20,6 +22,6 @@ export interface tokensSwap{
     tokenIn:`0x${string}`,
 
     tokenOut:`0x${string}`,
-    tokenInAmount:string ,
-    userAddress:`0x${string}`
+    tokenInAmount:string  ,
+    userAddress:`0x${string}` |  undefined,
 }

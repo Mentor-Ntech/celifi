@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
+  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,27 +20,32 @@ import {
 import SwapModal from "./SwapModal";
 import Image from "next/image";
 import { getTokenQuotes } from "@/Utils/quotes";
+import { getAllTokenTradePairs } from "@/Utils/discovery";
+import { ethers } from "ethers";
+import SwapTokens from "@/Utils/swap";
+import { useAccount } from "wagmi";
 
 export interface Token {
   name: string;
   address: string;
   symbol: string;
   decimals: number;
-  chainId: number;
-  logoURI: string;
-  image?: string;
+ chainId: number;
+  logoURI?: string;
+  image: string;
   amount: string;
 }
 
 const SwapCard: React.FC = () => {
+  const {address} = useAccount()
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [baseToken, setBaseToken] = useState<Token>({
     name: "Celo",
     address: "0x471EcE3750Da237f93B8E339c536989b8978a438",
     symbol: "CELO",
     decimals: 18,
-    chainId: 42220,
-    logoURI: "https://celo-org.github.io/celo-token-list/assets/celo_logo.svg",
+     chainId: 42220,
+    image: "https://celo-org.github.io/celo-token-list/assets/celo_logo.svg",
     amount: "",
   });
   const [quoteToken, setQuoteToken] = useState<Token>({
@@ -47,47 +53,67 @@ const SwapCard: React.FC = () => {
     address: "",
     symbol: "",
     decimals: 0,
-    chainId: 0,
-    logoURI: "",
+     chainId: 0,
+    image: "",
     amount: "",
   });
   const [selectedOption, setSelectedOption] = useState<"base" | "quote" | "">(
     ""
   );
+  const [quoteerror,setQuoteerror]= useState<string>("")
   const [baseTokenAmount, setBaseTokenAmount] = useState<string>("");
   const [quoteTokenAmount, setQuoteTokenAmount] = useState<string>("");
+  const {swap} =  SwapTokens({tokenIn:baseToken.address as `0x${string}`,tokenOut:quoteToken.address as `0x${string}`,userAddress:address,tokenInAmount:baseToken.amount})
 
   useEffect(() => {
+    
     setBaseToken((prev) => {
       return { ...prev, amount: baseTokenAmount };
     });
 
-    setQuoteToken((prev) => {
-      return { ...prev, amount: quoteTokenAmount };
-    });
+    // setQuoteToken((prev) => {
+    //   return { ...prev, amount: quoteTokenAmount };
+    // });
   }, [baseTokenAmount, quoteTokenAmount]);
 
   useEffect(() => {
     console.log(baseToken);
+
+    const allpairs = async()=>{
+      const pairs = await getAllTokenTradePairs()
+      console.log("pairs",pairs)
+    }
     // console.log(baseToken.amount)
     const getQuotes = async () => {
       const tokenIn = baseToken.address as `0x${string}`;
       const tokenOut = quoteToken.address as `0x${string}`;
+      console.log("token in",tokenIn)
+      console.log("token out",tokenOut)
       // const amountIn = parseUnits(
       //   baseToken?.amount,
       //   baseToken?.decimals
       // );
       // console.log(tokenIn, tokenOut, amountIn)
-      const quotes = await getTokenQuotes({
-        tokenIn,
-        tokenOut,
-        tokenAmount: baseToken.amount,
-      });
-      console.log(quotes);
+      try{
+        const quotes = await getTokenQuotes({
+          tokenIn,
+          tokenOut,
+          tokenAmount: baseToken.amount,
+        });
+        setQuoteTokenAmount(Number(quotes).toString())
+        console.log("quotes amount",Number(quotes));
+
+      }catch(error){
+        console.log(error)
+        setQuoteerror("Token Pair Not Supported")
+
+      }
+     
     };
     if (baseToken.amount && quoteToken?.name) {
       getQuotes();
     }
+    allpairs()
   }, [baseToken, quoteToken]);
 
   const handleSelectedTokenShuffle = () => {
@@ -98,6 +124,23 @@ const SwapCard: React.FC = () => {
       return { ...prev, ...baseToken };
     });
   };
+
+
+  const swapPair = async()=>{
+    try{
+      
+      //console.log("allowanceReceipt",allowanceReceipt)
+
+      const { allowanceReceipt, swapTxReceipt } = await swap()
+      console.log("allowanceReceipt",allowanceReceipt)
+      console.log("swapTxReceipt",swapTxReceipt)
+
+
+
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <main className="flex-1 px-4 py-8 sm:px-6">
@@ -126,7 +169,11 @@ const SwapCard: React.FC = () => {
                 <Input
                   type="number"
                   placeholder="0.0"
-                  onChange={(e) => setBaseTokenAmount(e.target.value)}
+                  onChange={(e) => {
+                    setBaseTokenAmount(e.target.value);
+                    
+                    setQuoteerror("");
+                  }}
                   className="rounded-r-none bg-transparent text-gray-100 py-6"
                 />
                 {baseToken?.name ? (
@@ -141,14 +188,14 @@ const SwapCard: React.FC = () => {
                   >
                     <ChevronDownIcon className="h-4 w-4" />
 
-                    {baseToken?.logoURI && (
+                    {/* {baseToken?.logoURI && (
                       <Image
                         width={27}
                         height={27}
                         src={baseToken?.logoURI}
                         alt={baseToken?.name}
                       />
-                    )}
+                    )} */}
                     {baseToken?.image && (
                       <Image
                         width={27}
@@ -188,9 +235,13 @@ const SwapCard: React.FC = () => {
               <h3 className="text-gray-200 text-xl">You receive</h3>
               <div className="grid grid-cols-[1fr_auto] items-center gap-2">
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="0.0"
-                  onChange={(e) => setQuoteTokenAmount(e.target.value)}
+                  value={Number(quoteTokenAmount
+                    ? (Number(quoteTokenAmount.toString()))/10**18
+                    : '0')}
+                  disabled={true}
+                 
                   className="rounded-r-none bg-transparent text-gray-100 py-6"
                 />
                 {/* <Button
@@ -206,20 +257,21 @@ const SwapCard: React.FC = () => {
                     onClick={() => {
                       setSelectedOption("quote");
                       setOpenDialog(true);
+                      setQuoteerror("")
                     }}
                     variant="outline"
                     size="sm"
                     className="rounded-l-none py-6 flex gap-1 items-center justify-center"
                   >
                     <ChevronDownIcon className="h-4 w-4" />
-                    {quoteToken?.logoURI && (
+                    {/* {quoteToken?.logoURI && (
                       <Image
                         width={27}
                         height={27}
                         src={quoteToken?.logoURI}
                         alt={quoteToken?.name}
                       />
-                    )}
+                    )} */}
                     {quoteToken?.image && (
                       <Image
                         width={27}
@@ -238,6 +290,7 @@ const SwapCard: React.FC = () => {
                     onClick={() => {
                       setSelectedOption("quote");
                       setOpenDialog(true);
+                      setQuoteerror("")
                     }}
                     className="rounded-l-none py-6 flex gap-1 items-center justify-center"
                   >
@@ -260,11 +313,16 @@ const SwapCard: React.FC = () => {
                   <span>0.3% fee</span>
                 </div>
               </div>
-              <Button variant={"outline"} className="w-full">
+              <Button onClick={swapPair} variant={"outline"} className="w-full">
                 Swap
               </Button>
             </div>
           </CardContent>
+          <CardFooter >
+            <div className="flex  justify-center items-center w-full ">
+               <div className="text-red-400 ">{quoteerror}</div>
+            </div>
+          </CardFooter>
         </Card>
       </div>
     </main>

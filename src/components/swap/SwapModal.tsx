@@ -15,6 +15,8 @@ import { Token } from "./SwapCard";
 import { MainnetTokens as untypedMainnetToken } from "@/Utils/Tokens";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import tokenPairs from "@/Utils/Tokens";
+
 
 const MainnetTokens = untypedMainnetToken as Token[];
 
@@ -31,9 +33,15 @@ interface SwapModalProps {
   setQuoteToken: React.Dispatch<React.SetStateAction<Token>>;
 }
 
-const filteredTokenList = celoTokenList.tokens.sort((a, b) =>
+interface TokenPairs {
+  [key: string]: Token[];
+}
+
+// Extract the first token from each tokenPair object
+const filteredTokenList = Object.values(tokenPairs).flatMap(pair => pair.slice(0, 1)).sort((a, b) =>
   a.name.localeCompare(b.name)
 ) as Token[];
+
 
 const SwapModal: React.FC<SwapModalProps> = ({
   baseToken,
@@ -77,10 +85,14 @@ const SwapModal: React.FC<SwapModalProps> = ({
     if (selectedOption === "quote") {
       setQuoteToken({ ...tokenInfo, amount: "" });
     }
-    setSearchResults(filteredTokenList);
+    
+
     setSearch("");
     setOpenDialog(false);
   };
+
+  
+  
 
   return (
     <div>
@@ -100,7 +112,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
           </DialogHeader>
           <div className="flex gap-3 flex-wrap">
             {MainnetTokens.map((MainnetToken) => (
-              <div
+              <div key={MainnetToken.address}
                 onClick={() => handleSetToken(MainnetToken)}
                 className={`flex gap-2 border rounded-3xl   border-gray-300 text-gray-800 px-2 py-1 ${
                   (selectedOption === "base" &&
@@ -141,7 +153,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
               {searchResults.length ? (
                 <ul className="flex flex-col gap-3">
                   {searchResults.map((searchResult) => (
-                    <li
+                    <li key={searchResult.address}
                       onClick={() => handleSetToken(searchResult)}
                       className={`${
                         (selectedOption === "base" &&
@@ -157,7 +169,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
                         <Image
                           width={30}
                           height={30}
-                          src={searchResult.logoURI}
+                          src={searchResult.image}
                           alt={searchResult.name}
                           className="bg-gray-300 rounded-full w-10 h-10"
                         />
