@@ -3,28 +3,39 @@ import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
+
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import celoTokenList from "../../Utils/celoTokensList.json";
-import { MainnetTokens } from "@/Utils/Tokens";
+import { Token } from "./SwapCard";
+import { MainnetTokens as untypedMainnetToken } from "@/Utils/Tokens";
 import Image from "next/image";
-import { Separator } from "../ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
+const MainnetTokens = untypedMainnetToken as Token[];
+
+interface SwapModalProps {
+  baseToken: Token;
+  setBaseToken: React.Dispatch<React.SetStateAction<Token>>;
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  quoteToken: Token;
+  selectedOption: "base" | "quote" | "";
+  setSelectedOption: React.Dispatch<
+    React.SetStateAction<"base" | "quote" | "">
+  >;
+  setQuoteToken: React.Dispatch<React.SetStateAction<Token>>;
+}
 
 const filteredTokenList = celoTokenList.tokens.sort((a, b) =>
   a.name.localeCompare(b.name)
-);
+) as Token[];
 
-const SwapModal = ({
+const SwapModal: React.FC<SwapModalProps> = ({
   baseToken,
   setBaseToken,
   openDialog,
@@ -34,8 +45,9 @@ const SwapModal = ({
   setSelectedOption,
   setQuoteToken,
 }) => {
-  const [searchResults, setSearchResults] = useState(filteredTokenList);
-  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] =
+    useState<Token[]>(filteredTokenList);
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     const filteredSearch = filteredTokenList.filter((searchResult) => {
@@ -50,14 +62,14 @@ const SwapModal = ({
     });
     setSearchResults(filteredSearch);
   }, [search]);
-  
+
   useEffect(() => {
     if (openDialog === false) {
       setSearchResults(filteredTokenList);
     }
   }, [openDialog]);
 
-  const handleSetToken = (tokenInfo) => {
+  const handleSetToken = (tokenInfo: Token) => {
     console.log(tokenInfo);
     if (selectedOption === "base") {
       setBaseToken({ ...tokenInfo, amount: "" });
@@ -108,12 +120,14 @@ const SwapModal = ({
                   " cursor-pointer "
                 }`}
               >
-                <Image
-                  width={27}
-                  height={27}
-                  src={MainnetToken.image}
-                  alt={MainnetToken.name}
-                />
+                {MainnetToken.image && (
+                  <Image
+                    width={27}
+                    height={27}
+                    src={MainnetToken.image}
+                    alt={MainnetToken.name}
+                  />
+                )}
                 <p>{MainnetToken.symbol}</p>
               </div>
             ))}
@@ -121,39 +135,47 @@ const SwapModal = ({
           {/* <Separator /> */}
           <ScrollArea className=" h-[300px] border-t border-gray-300/50 ">
             <div className="pt-3">
-              <h3 className="text-lg font-semibold opacity-60 mb-5">Tokens</h3>
-              <ul className="flex flex-col gap-3">
-                {searchResults.map((searchResult) => (
-                  <li
-                    onClick={() => handleSetToken(searchResult)}
-                    className={`${
-                      (selectedOption === "base" &&
-                        quoteToken.symbol === searchResult.symbol &&
-                        "pointer-events-none opacity-40") ||
-                      (selectedOption === "quote" &&
-                        baseToken.symbol === searchResult.symbol &&
-                        "pointer-events-none opacity-40") ||
-                      "hover:bg-gray-800 cursor-pointer "
-                    }`}
-                  >
-                    <div className="flex gap-4 items-center">
-                      <Image
-                        width={30}
-                        height={30}
-                        src={searchResult.logoURI}
-                        alt={searchResult.name}
-                        className="bg-gray-300 rounded-full w-10 h-10"
-                      />
-                      <div className="flex flex-col gap-1">
-                        <h4>{searchResult.name}</h4>
-                        <p className="opacity-60 text-sm">
-                          {searchResult.symbol}
-                        </p>
+              <h3 className="text-lg font-semibold opacity-60 mb-5">
+                {search ? "Search results" : "Tokens"}
+              </h3>
+              {searchResults.length ? (
+                <ul className="flex flex-col gap-3">
+                  {searchResults.map((searchResult) => (
+                    <li
+                      onClick={() => handleSetToken(searchResult)}
+                      className={`${
+                        (selectedOption === "base" &&
+                          quoteToken.symbol === searchResult.symbol &&
+                          "pointer-events-none opacity-40") ||
+                        (selectedOption === "quote" &&
+                          baseToken.symbol === searchResult.symbol &&
+                          "pointer-events-none opacity-40") ||
+                        "hover:bg-gray-800 cursor-pointer "
+                      }`}
+                    >
+                      <div className="flex gap-4 items-center">
+                        <Image
+                          width={30}
+                          height={30}
+                          src={searchResult.logoURI}
+                          alt={searchResult.name}
+                          className="bg-gray-300 rounded-full w-10 h-10"
+                        />
+                        <div className="flex flex-col gap-1">
+                          <h4>{searchResult.name}</h4>
+                          <p className="opacity-60 text-sm">
+                            {searchResult.symbol}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="flex justify-center items-center">
+                  No token found
+                </div>
+              )}
             </div>
           </ScrollArea>
         </DialogContent>
