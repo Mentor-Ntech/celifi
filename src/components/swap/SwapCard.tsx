@@ -140,14 +140,23 @@ const SwapCard: React.FC = () => {
                 >
                   <ChevronDownIcon className="h-4 w-4" />
 
-                  {baseToken?.image && baseToken?.logoURI && (
+                  {baseToken?.logoURI && (
                     <Image
                       width={27}
                       height={27}
-                      src={baseToken?.logoURI || baseToken?.image}
+                      src={baseToken?.logoURI}
                       alt={baseToken?.name}
                     />
                   )}
+                  {baseToken?.image && (
+                    <Image
+                      width={27}
+                      height={27}
+                      src={baseToken?.image}
+                      alt={baseToken?.name}
+                    />
+                  )}
+
                   <p>{baseToken?.symbol}</p>
                 </Button>
               </div>
@@ -188,14 +197,22 @@ const SwapCard: React.FC = () => {
                     className="rounded-l-none py-6 flex gap-1 items-center justify-center"
                   >
                     <ChevronDownIcon className="h-4 w-4" />
-                    {quoteToken?.image && quoteToken?.logoURI && (
-                      <Image
-                        width={27}
-                        height={27}
-                        src={quoteToken?.logoURI || quoteToken?.image}
-                        alt={quoteToken?.name}
-                      />
-                    )}
+                    {quoteToken?.logoURI && (
+                    <Image
+                      width={27}
+                      height={27}
+                      src={quoteToken?.logoURI}
+                      alt={quoteToken?.name}
+                    />
+                  )}
+                  {quoteToken?.image && (
+                    <Image
+                      width={27}
+                      height={27}
+                      src={quoteToken?.image}
+                      alt={quoteToken?.name}
+                    />
+                  )}
 
                     <p>{quoteToken?.symbol}</p>
                   </Button>
