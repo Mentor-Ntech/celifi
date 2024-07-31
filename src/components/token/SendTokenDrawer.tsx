@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { X } from "lucide-react";
 import { Input } from "../ui/input";
 import SendTokenSelectDrawer from "./SendTokenSelectDrawer";
-const { ethers } = require("ethers");
+const { ethers } = require("ethers-v6");
 
 interface SendTokenDrawerProps {
   sendDrawerOpen: boolean;

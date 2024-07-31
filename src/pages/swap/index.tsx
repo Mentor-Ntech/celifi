@@ -3,6 +3,7 @@ import { Inter,Noto_Sans } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import ComingSoon from "@/components/ComingSoon";
+import SwapCard from "@/components/swap/SwapCard";
 
 
 export default function Home() {
@@ -10,9 +11,7 @@ export default function Home() {
     <main
       className="h-full w-full flex justify-center items-center"
     >
-      <ComingSoon/>
-      {/* <div className="flex justify-center items-center text-Celifi-Yellow"><h1>HELLO THERE WELCOME TO CELIFI</h1></div>
-      */}
+      <SwapCard/>
     </main>
   );
 }
