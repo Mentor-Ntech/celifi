@@ -129,36 +129,51 @@ const SwapCard: React.FC = () => {
                   onChange={(e) => setBaseTokenAmount(e.target.value)}
                   className="rounded-r-none bg-transparent text-gray-100 py-6"
                 />
-                <Button
-                  onClick={() => {
-                    setSelectedOption("base");
-                    setOpenDialog(true);
-                  }}
-                  variant="outline"
-                  size="sm"
-                  className="rounded-l-none py-6 flex gap-1"
-                >
-                  <ChevronDownIcon className="h-4 w-4" />
+                {baseToken?.name ? (
+                  <Button
+                    onClick={() => {
+                      setSelectedOption("base");
+                      setOpenDialog(true);
+                    }}
+                    variant="outline"
+                    size="sm"
+                    className="rounded-l-none py-6 flex gap-1"
+                  >
+                    <ChevronDownIcon className="h-4 w-4" />
 
-                  {baseToken?.logoURI && (
-                    <Image
-                      width={27}
-                      height={27}
-                      src={baseToken?.logoURI}
-                      alt={baseToken?.name}
-                    />
-                  )}
-                  {baseToken?.image && (
-                    <Image
-                      width={27}
-                      height={27}
-                      src={baseToken?.image}
-                      alt={baseToken?.name}
-                    />
-                  )}
+                    {baseToken?.logoURI && (
+                      <Image
+                        width={27}
+                        height={27}
+                        src={baseToken?.logoURI}
+                        alt={baseToken?.name}
+                      />
+                    )}
+                    {baseToken?.image && (
+                      <Image
+                        width={27}
+                        height={27}
+                        src={baseToken?.image}
+                        alt={baseToken?.name}
+                      />
+                    )}
 
-                  <p>{baseToken?.symbol}</p>
-                </Button>
+                    <p>{baseToken?.symbol}</p>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedOption("base");
+                      setOpenDialog(true);
+                    }}
+                    className="rounded-l-none py-6 flex gap-1 items-center justify-center"
+                  >
+                    <ChevronDownIcon className="h-4 w-4" />
+                    <span>Select token</span>
+                  </Button>
+                )}
               </div>
               <div className="flex items-center justify-center">
                 <Button
@@ -198,21 +213,21 @@ const SwapCard: React.FC = () => {
                   >
                     <ChevronDownIcon className="h-4 w-4" />
                     {quoteToken?.logoURI && (
-                    <Image
-                      width={27}
-                      height={27}
-                      src={quoteToken?.logoURI}
-                      alt={quoteToken?.name}
-                    />
-                  )}
-                  {quoteToken?.image && (
-                    <Image
-                      width={27}
-                      height={27}
-                      src={quoteToken?.image}
-                      alt={quoteToken?.name}
-                    />
-                  )}
+                      <Image
+                        width={27}
+                        height={27}
+                        src={quoteToken?.logoURI}
+                        alt={quoteToken?.name}
+                      />
+                    )}
+                    {quoteToken?.image && (
+                      <Image
+                        width={27}
+                        height={27}
+                        src={quoteToken?.image}
+                        alt={quoteToken?.name}
+                      />
+                    )}
 
                     <p>{quoteToken?.symbol}</p>
                   </Button>
