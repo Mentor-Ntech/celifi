@@ -100,7 +100,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
         <DialogContent className="sm:max-w-[425px] border border-y-gray-50/60 bg-gray-900 text-gray-100">
           <DialogHeader>
             <DialogTitle className="mb-2">Select a token</DialogTitle>
-            <div className="border rounded-xl flex px-3 justify-center items-center">
+            <div className="border rounded-full flex px-3 justify-center items-center">
               <Search className="opacity-30 w-6 h-6 " />
               <Input
                 type="text"
