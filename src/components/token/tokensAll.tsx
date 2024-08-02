@@ -39,13 +39,13 @@ const TokensTable = () => {
 				<>
 					<div className="flex items-center justify-around gap-6">
 						<div
-							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-custom-button-gradient rounded-[2px] text-white text-sm cursor-pointer"
+							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-[#476520]  hover:bg-[#476520]/80 rounded-[2px] text-white text-sm cursor-pointer"
 							onClick={() => setReceiveDrawerOpen(true)}
 						>
 							<p>Receive</p>
 						</div>
 						<div
-							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-custom-button-gradient rounded-[2px] text-white text-sm cursor-pointer"
+							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-[#476520]  hover:bg-[#476520]/80 rounded-[2px] text-white text-sm cursor-pointer"
 							onClick={() => setSendDrawerOpen(true)}
 						>
 							<p>Send</p>
