@@ -139,7 +139,7 @@ const SwapCard: React.FC = () => {
   };
 
   return (
-    <main className="flex-1 px-4 py-8 sm:px-6">
+    <main className="flex-1  py-8 sm:px-6">
       <div className="mx-auto max-w-md space-y-6">
         <SwapModal
           baseToken={baseToken}
@@ -151,7 +151,7 @@ const SwapCard: React.FC = () => {
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
         />
-        <Card className="bg-gray-900 border-2 border-gray-200 border-opacity-15">
+        <Card className= "bg-transparent max-md:border-none md:bg-black   md:border-[#799F46]/50">
           <CardHeader>
             <CardTitle className="text-gray-100 text-center">
               {/* Swap Tokens */}
@@ -173,7 +173,7 @@ const SwapCard: React.FC = () => {
 
                     setQuoteerror("");
                   }}
-                  className="rounded-none bg-[#799F46]/10 text-gray-100 py-[23px]"
+                  className="rounded-none border-[#799F46]/75 bg-[#799F46]/10 text-gray-100 py-[23px]"
                 />
                 {baseToken?.name ? (
                   <Button
@@ -224,7 +224,7 @@ const SwapCard: React.FC = () => {
               <div className="flex items-center justify-center">
                 <Button
                   onClick={handleSelectedTokenShuffle}
-                  variant="ghost"
+                  variant="link"
                   size="icon"
                   className="rotate-90 text-muted-foreground"
                 >
@@ -242,7 +242,7 @@ const SwapCard: React.FC = () => {
                       : "0"
                   )}
                   disabled={true}
-                  className="rounded-none bg-[#799F46]/10 text-gray-100 py-[23px]"
+                  className="rounded-none border-[#799F46]/75 bg-[#799F46]/10 text-gray-100 py-[23px]"
                 />
                 {/* <Button
                   variant="outline"
