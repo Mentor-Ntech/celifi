@@ -33,7 +33,7 @@ const TokensPage = () => {
 				reqFeatureOpen={reqFeatureOpen}
 				setReqFeatureOpen={setReqFeatureOpen}
 			/>
-			<Button onClick={() => setReqFeatureOpen(true)} className="bg-[#476520]  hover:bg-[#476520]/80 text-sm font-light rounded-none p-6 fixed bottom-20 transform left-1/2 -translate-x-1/2 z-40">
+			<Button onClick={() => setReqFeatureOpen(true)} className="bg-[#476520]  hover:bg-[#476520]/80 text-sm font-light rounded-full p-6 fixed bottom-20 transform left-1/2 -translate-x-1/2 z-40">
 				Request feature
 			</Button>
 

@@ -106,7 +106,11 @@ const SwapCard: React.FC = () => {
         });
         setQuoteTokenAmount(Number(quotes).toString());
         console.log("quotes amount", Number(quotes));
-      } catch (error) {
+      } catch (error:any) {
+        if(error.message.includes("no valid median")){
+          setQuoteerror("Unable to fetch swap out amount")
+          return;
+        }
         console.log(error);
         setQuoteerror("Token Pair Not Supported");
       }
@@ -316,7 +320,7 @@ const SwapCard: React.FC = () => {
               <Button
                 onClick={swapPair}
                 // variant={"outline"}
-                className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-none hover:bg-Celifi-Swap-Green/80"
+                className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-2xl hover:bg-Celifi-Swap-Green/80"
               >
                 Confirm swap
               </Button>

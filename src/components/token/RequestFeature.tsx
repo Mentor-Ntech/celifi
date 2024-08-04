@@ -49,7 +49,7 @@ const RequestFeature = ({
 						/>
 
 						<DrawerFooter className="px-0">
-							<Button className="w-full bg-[#476520]  hover:bg-[#476520]/80 text-sm font-light rounded-none p-6">
+							<Button className="w-full bg-[#476520]  hover:bg-[#476520]/80 text-sm font-light rounded-2xl p-6">
 								Send
 							</Button>
 						</DrawerFooter>
