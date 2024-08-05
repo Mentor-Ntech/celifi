@@ -46,7 +46,7 @@ const ReceiveTokenDrawer: React.FC<ReceiveTokenDrawerProps> = ({
             onClick={() => handleCopy()}
           >
            
-            <p className="inline-flex gap-3 justify-center items-center">
+            <p className="inline-flex gap-3 justify-center whitespace-nowrap items-center ">
               Copy address <Copy className="w-4 h-4" />
             </p>
           </div>
