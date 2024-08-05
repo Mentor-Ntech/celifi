@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  Drawer,
-  DrawerContent,
-} from "@/components/ui/drawer";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import QrCode from "./QrCode";
 import toast from "react-hot-toast";
-import { X,Share2 } from "lucide-react";
+import { X, Share2 } from "lucide-react";
 import { Copy } from "lucide-react";
-import { shareToGoogleMail,shareToWhatsApp } from "@/share/share";
+import { shareToGoogleMail, shareToWhatsApp } from "@/share/share";
 import { Button } from "../ui/button";
-
 
 interface ReceiveTokenDrawerProps {
   receiveDrawerOpen: boolean;
@@ -40,23 +36,26 @@ const ReceiveTokenDrawer: React.FC<ReceiveTokenDrawerProps> = ({
           <div className="break-all">
             <p className="text-xs text-center">{addressToUse}</p>
           </div>
-          <div  className="flex justify-around items-center gap-4"> 
-          <div
-            className="flex justify-center items-center max-md:h-[40px]  md:h-12 w-36 bg-custom-button-gradient rounded-[2px] text-white text-sm cursor-pointer px-3"
-            onClick={() => handleCopy()}
-          >
-           
-            <p className="inline-flex gap-3 justify-center whitespace-nowrap items-center ">
-              Copy address <Copy className="w-4 h-4" />
-            </p>
+          <div className="flex w-full justify-between items-center gap-4">
+            <div
+              className="flex justify-center items-center h-[40px]   flex-1 bg-[#476520] rounded-[2px] text-white text-sm cursor-pointer px-3"
+              onClick={() => handleCopy()}
+            >
+              <p className="inline-flex gap-3 justify-center whitespace-nowrap items-center ">
+                Copy address <Copy className="w-4 h-4" />
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              className="bg-transparent py-4 px-4 rounded-sm hover:bg-gray-50/10 border-[#476520]"
+            >
+              <Share2
+                color="#476520"
+                className="w-4 h-4"
+                onClick={() => shareToWhatsApp(addressToUse)}
+              />
+            </Button>
           </div>
-          <Button variant="link" className="bg-transparent"> <Share2 color="white" onClick={()=>shareToWhatsApp(addressToUse)}/></Button>
-         
-
-          </div>
-        
-          
-          
         </div>
       </DrawerContent>
     </Drawer>
