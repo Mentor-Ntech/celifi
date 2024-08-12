@@ -9,6 +9,7 @@ import { SelectTokenPopover } from "./SelectTokenPopover";
 import useTokenBalances, { Tokens } from "./TokensData";
 import { cn } from "@/lib/utils";
 import { stringToBigint } from "@/hooks/stringToBigint";
+import { AlertSpinner } from "../spinner";
 
 interface SendTokenSelectDrawerProps {
 	sendDrawerOpen: boolean;
@@ -41,6 +42,7 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 		usdvalue: 0,
 	});
 	const [canSend, setCanSend] = useState(false);
+	
 
 	// const addressToUse = address;
 	const { balances, loading, sendToken } = useTokenBalances(
@@ -216,6 +218,7 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 							{sendBtnText}
 						</Button>
 					</div>
+					
 				</div>
 			</DrawerContent>
 		</Drawer>

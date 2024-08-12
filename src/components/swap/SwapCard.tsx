@@ -24,6 +24,7 @@ import { getAllTokenTradePairs } from "@/Utils/discovery";
 import { ethers } from "ethers";
 import SwapTokens from "@/Utils/swap";
 import { useAccount } from "wagmi";
+import { AlertSpinner } from "../spinner";
 
 export interface Token {
   name: string;
@@ -63,6 +64,7 @@ const SwapCard: React.FC = () => {
   const [quoteerror, setQuoteerror] = useState<string>("");
   const [baseTokenAmount, setBaseTokenAmount] = useState<string>("");
   const [quoteTokenAmount, setQuoteTokenAmount] = useState<string>("");
+  const [openSpinner,setOpenSpinner] = useState<boolean>(false);
   const { swap } = SwapTokens({
     tokenIn: baseToken.address as `0x${string}`,
     tokenOut: quoteToken.address as `0x${string}`,
@@ -133,11 +135,16 @@ const SwapCard: React.FC = () => {
   const swapPair = async () => {
     try {
       //console.log("allowanceReceipt",allowanceReceipt)
+      setOpenSpinner(true)
 
-      const { allowanceReceipt, swapTxReceipt } = await swap();
-      console.log("allowanceReceipt", allowanceReceipt);
-      console.log("swapTxReceipt", swapTxReceipt);
+      const { allowanceTx, swapTx } = await swap();
+      console.log("allowanceReceipt", allowanceTx);
+      console.log("swapTxReceipt", swapTx);
+      if(allowanceTx && swapTx){
+        setOpenSpinner(false)
+      }
     } catch (err) {
+      setOpenSpinner(false)
       console.log(err);
     }
   };
@@ -308,13 +315,13 @@ const SwapCard: React.FC = () => {
                   <ActivityIcon className="h-4 w-4" />
                   {quoteToken.name && (
                     <span>
-                      1 {baseToken.name} = 2000 {quoteToken.name}
+                      {/* 1 {baseToken.name} = 2000 {quoteToken.name} */}
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <PercentIcon className="h-4 w-4" />
-                  <span>0.3% fee</span>
+                  {/* <PercentIcon className="h-4 w-4" />
+                  <span>0.3% fee</span> */}
                 </div>
               </div>
               <Button
@@ -332,6 +339,7 @@ const SwapCard: React.FC = () => {
             </div>
           </CardFooter>
         </Card>
+        <AlertSpinner message={"Swapping ..."} open={openSpinner} setOpen={setOpenSpinner}/>
       </div>
     </main>
   );

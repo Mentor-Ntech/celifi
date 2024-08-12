@@ -6,7 +6,7 @@ export const shareToGoogleMail = (address:string) => {
   };
 
   export const shareToWhatsApp = (address:string) => {
-    const text = encodeURIComponent(`ADDRESS: ${address}`);
+    const text = encodeURIComponent(`${address}`);
     const whatsappLink = `https://api.whatsapp.com/send?text=${text}`;
     window.open(whatsappLink, '_blank');
   };

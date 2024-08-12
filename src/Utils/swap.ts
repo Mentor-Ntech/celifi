@@ -76,7 +76,7 @@ const SwapTokens = ({
 
       console.log("Swap transaction confirmed.");
 
-      return { allowanceReceipt, swapTxReceipt };
+      return { allowanceTx, swapTx };
     } catch (error: any) {
       console.error("Error in swap process:", error);
       throw new Error(`Swap failed: ${error.message}`);
