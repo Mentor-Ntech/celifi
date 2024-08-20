@@ -7,8 +7,8 @@ import Defi from "@/components/defi/Defi";
 import Performance from "@/components/performance/Performance";
 import PerformanceChart from "@/components/performance/PerformanceChart";
 import dynamic from "next/dynamic";
-import NftChart from "@/components/nft/nftChart";
-import NFTSTable from "@/components/nft/nfts";
+import NftChart from "@/components/activity/nftChart";
+import NFTSTable from "@/components/activity/Activity";
 import useTokenBalances from "../token/TokensData";
 import { useAccount } from "wagmi";
 import { Button } from "../ui/button";
@@ -63,7 +63,7 @@ const TokensPage = () => {
 							value="nft"
 							onClick={() => setTabValue("nft")}
 						>
-							NFT
+							Activity
 						</TabsTrigger>
 						<TabsTrigger
 							className=" flex flex-col text-xs sm:text-base rounded-none px-4 md:px-8"
