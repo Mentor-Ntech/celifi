@@ -65,6 +65,7 @@ const SwapCard: React.FC = () => {
   const [baseTokenAmount, setBaseTokenAmount] = useState<string>("");
   const [quoteTokenAmount, setQuoteTokenAmount] = useState<string>("");
   const [openSpinner,setOpenSpinner] = useState<boolean>(false);
+  const [enableSwap,setEnableSwap] = useState<boolean>(true)
   const { swap } = SwapTokens({
     tokenIn: baseToken.address as `0x${string}`,
     tokenOut: quoteToken.address as `0x${string}`,
@@ -106,6 +107,9 @@ const SwapCard: React.FC = () => {
           tokenOut,
           tokenAmount: baseToken.amount,
         });
+        if (quotes){
+          setEnableSwap(false)
+        }
         setQuoteTokenAmount(Number(quotes).toString());
         console.log("quotes amount", Number(quotes));
       } catch (error:any) {
@@ -115,13 +119,14 @@ const SwapCard: React.FC = () => {
         }
         console.log(error);
         setQuoteerror("Token Pair Not Supported");
+        setEnableSwap(true)
       }
     };
     if (baseToken.amount && quoteToken?.name) {
       getQuotes();
     }
     allpairs();
-  }, [baseToken, quoteToken]);
+  }, [baseToken, quoteToken,enableSwap]);
 
   const handleSelectedTokenShuffle = () => {
     setBaseToken((prev) => {
@@ -324,8 +329,10 @@ const SwapCard: React.FC = () => {
                   <span>0.3% fee</span> */}
                 </div>
               </div>
+              
               <Button
                 onClick={swapPair}
+                disabled={enableSwap}
                 // variant={"outline"}
                 className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-2xl hover:bg-Celifi-Swap-Green/80"
               >
