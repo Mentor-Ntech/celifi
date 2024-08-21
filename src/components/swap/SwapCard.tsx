@@ -92,6 +92,7 @@ const SwapCard: React.FC = () => {
     };
     // console.log(baseToken.amount)
     const getQuotes = async () => {
+    
       const tokenIn = baseToken.address as `0x${string}`;
       const tokenOut = quoteToken.address as `0x${string}`;
       console.log("token in", tokenIn);
@@ -254,7 +255,7 @@ const SwapCard: React.FC = () => {
                   placeholder="0.0"
                   value={Number(
                     quoteTokenAmount
-                      ? Number(quoteTokenAmount.toString()) / 10 ** 18
+                      ? (Number(quoteTokenAmount.toString()) / 10 ** 18)
                       : "0"
                   )}
                   disabled={true}
