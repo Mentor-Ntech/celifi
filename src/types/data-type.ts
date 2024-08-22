@@ -25,3 +25,29 @@ export interface tokensSwap{
     tokenInAmount:string  ,
     userAddress:`0x${string}` |  undefined,
 }
+
+export interface TransactionData {
+    blockHash: string;
+    blockNumber: string;
+    confirmations: string;
+    contractAddress: string;
+    cumulativeGasUsed: string;
+    date: string;
+    from: string;
+    gas: string;
+    gasPrice: string;
+    gasUsed: string;
+    hash: string;
+    input: string;
+    logIndex: string;
+    nonce: string;
+    timeStamp: string;
+    to: string;
+    tokenDecimal: number;
+    tokenName: string;
+    tokenSymbol: string;
+    transactionIndex: string;
+    transactionType: string;
+    value: number;
+  }
+  

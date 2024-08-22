@@ -65,6 +65,7 @@ const SwapCard: React.FC = () => {
   const [baseTokenAmount, setBaseTokenAmount] = useState<string>("");
   const [quoteTokenAmount, setQuoteTokenAmount] = useState<string>("");
   const [openSpinner,setOpenSpinner] = useState<boolean>(false);
+  const [enableSwap,setEnableSwap] = useState<boolean>(true)
   const { swap } = SwapTokens({
     tokenIn: baseToken.address as `0x${string}`,
     tokenOut: quoteToken.address as `0x${string}`,
@@ -91,6 +92,7 @@ const SwapCard: React.FC = () => {
     };
     // console.log(baseToken.amount)
     const getQuotes = async () => {
+    
       const tokenIn = baseToken.address as `0x${string}`;
       const tokenOut = quoteToken.address as `0x${string}`;
       console.log("token in", tokenIn);
@@ -106,6 +108,9 @@ const SwapCard: React.FC = () => {
           tokenOut,
           tokenAmount: baseToken.amount,
         });
+        if (quotes){
+          setEnableSwap(false)
+        }
         setQuoteTokenAmount(Number(quotes).toString());
         console.log("quotes amount", Number(quotes));
       } catch (error:any) {
@@ -115,13 +120,14 @@ const SwapCard: React.FC = () => {
         }
         console.log(error);
         setQuoteerror("Token Pair Not Supported");
+        setEnableSwap(true)
       }
     };
     if (baseToken.amount && quoteToken?.name) {
       getQuotes();
     }
     allpairs();
-  }, [baseToken, quoteToken]);
+  }, [baseToken, quoteToken,enableSwap]);
 
   const handleSelectedTokenShuffle = () => {
     setBaseToken((prev) => {
@@ -249,7 +255,7 @@ const SwapCard: React.FC = () => {
                   placeholder="0.0"
                   value={Number(
                     quoteTokenAmount
-                      ? Number(quoteTokenAmount.toString()) / 10 ** 18
+                      ? (Number(quoteTokenAmount.toString()) / 10 ** 18)
                       : "0"
                   )}
                   disabled={true}
@@ -324,8 +330,10 @@ const SwapCard: React.FC = () => {
                   <span>0.3% fee</span> */}
                 </div>
               </div>
+              
               <Button
                 onClick={swapPair}
+                disabled={enableSwap}
                 // variant={"outline"}
                 className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-2xl hover:bg-Celifi-Swap-Green/80"
               >
