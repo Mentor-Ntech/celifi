@@ -28,39 +28,35 @@ export function ActivityDrawer({ data, open, setOpen }: ActivityProps) {
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={setOpen} >
       <DrawerContent className="h-screen bg-Celifi-Primary text-Celifi-Gray border-none">
-      <div className="flex  mt-4">
+      {/* <div className="flex  mt-4">
             <X
               onClick={() => setOpen(false)}
               className=" text-white/80 cursor-pointer ml-3 w-8 h-8"
-            /> </div>
-        <div className="mx-auto w-full max-w-sm">
+            /> </div> */}
+        <div className="flex flex-col   items-center p-10 h-full w-full ">
           <DrawerHeader>
-            <DrawerTitle>Transaction Details</DrawerTitle>
-            <DrawerDescription>
-              Details of the selected transaction.
-            </DrawerDescription>
+            <DrawerDescription className="text-xl">You've {data.transactionType}</DrawerDescription>
+           
           </DrawerHeader>
 
           <div className="p-4 pb-0">
             <div className="text-sm space-y-2">
-              <div><strong>Hash:</strong> {data.hash}</div>
-              <div><strong>From:</strong> {data.from}</div>
-              <div><strong>To:</strong> {data.to}</div>
-              <div><strong>Value:</strong> {data.value}</div>
-              <div><strong>Token:</strong> {data.tokenSymbol}</div>
-              <div><strong>Date:</strong> {data.date}</div>
-              <div><strong>Gas Used:</strong> {data.gasUsed}</div>
-              <div><strong>Transaction Type:</strong> {data.transactionType}</div>
-              {/* Add more fields as needed */}
+              
+             
+              <div><strong className="text-4xl"> {Number((( data.value)/10 ** data.tokenDecimal).toFixed(4))} {data.tokenSymbol}</strong></div>
+            
+              <div><strong><DrawerDescription> On: {data.date}</DrawerDescription></strong></div>
+             
+             
             </div>
           </div>
 
-          <DrawerFooter>
-            <Button>Submit</Button>
+          <DrawerFooter className="w-full md:w-1/4">
+            <Button variant="outline" className="text-Celifi-Swap-Green"><a href={`https://explorer.celo.org/mainnet/tx/${data.hash}`} >Blockchain receipt</a></Button>
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="destructive">Done</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>
