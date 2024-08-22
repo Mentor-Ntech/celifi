@@ -1,10 +1,11 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
+import { TransactionData } from "@/types/data-type";
 
 
 interface TransactionHistoryProps {
-  transactions: any[];
+  transactions: TransactionData[];
   network: string;
 }
 
@@ -29,7 +30,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions, n
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-4">
-                    <CardDescription className="text-left">Amount: <span className="text-[#476520]">{(tx.value / 10 ** 18).toFixed(3)} {tx.tokenSymbol}</span></CardDescription>
+                    <CardDescription className="text-left">Amount: <span className="text-[#476520]">{(tx.value / 10 ** tx.tokenDecimal).toFixed(3)} {tx.tokenSymbol}</span></CardDescription>
                     <CardDescription className="text-left">Date: <span className="text-[#476520]">{tx.date}</span></CardDescription>
                     <CardDescription className="text-left">Type: <span className="text-[#476520]">{tx.transactionType}</span></CardDescription>
                   </div>

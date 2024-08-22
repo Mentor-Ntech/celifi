@@ -48,7 +48,7 @@ export const getTokenSymbol = async (to: string) => {
   return tokenAddresses[to.toLowerCase()] || "CELO";
 };
 
-export const getTransactionType = (tx: any, walletAddress: string | null) => {
+export const getTransactionType = (tx: any, walletAddress: string ) => {
   if (!tx.to) return "Contract Deployed";
   if (tx.from.toLowerCase() === walletAddress?.toLowerCase()) return "Sent";
   if (tx.to.toLowerCase() === walletAddress?.toLowerCase()) return "Received";
