@@ -12,6 +12,7 @@ import { TransactionData } from "@/types/data-type";
 import { ActivityDrawer } from "./activityDrawer";
 import { Button } from "@headlessui/react";
 import { CircleArrowDown,CircleArrowUp } from "lucide-react";
+import { formatDate } from "@/hooks/dateFormat";
 
 interface TransactionHistoryProps {
   transactions: TransactionData[];
@@ -62,7 +63,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                     </CardDescription>
                     <CardDescription className="text-left">
                       Date:{" "}
-                      <span className="text-[#476520]">{tx.date}</span>
+                      <span className="text-[#476520]">{formatDate(tx.date).split(",")[0].split(" ")[0]}</span>
                     </CardDescription>
                    
                     

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { TransactionData } from "@/types/data-type";
+import { formatDate } from "@/hooks/dateFormat";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,7 +38,7 @@ export function ActivityDrawer({ data, open, setOpen }: ActivityProps) {
             /> </div> */}
         <div className="flex flex-col   items-center p-10 h-full w-full ">
           <DrawerHeader>
-            <DrawerDescription className="text-xl">You've {data.transactionType}</DrawerDescription>
+            <DrawerDescription className="text-xl">You&apos;ve {data.transactionType}</DrawerDescription>
            
           </DrawerHeader>
 
@@ -47,7 +48,7 @@ export function ActivityDrawer({ data, open, setOpen }: ActivityProps) {
              
               <div><strong className="text-4xl"> {Number((( data.value)/10 ** data.tokenDecimal).toFixed(4))} {data.tokenSymbol}</strong></div>
             
-              <div><strong><DrawerDescription> On: {data.date}</DrawerDescription></strong></div>
+              <div><strong><DrawerDescription> On: {formatDate(data.date)}</DrawerDescription></strong></div>
              
              
             </div>
