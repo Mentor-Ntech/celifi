@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 import { TransactionData } from "@/types/data-type";
 import { ActivityDrawer } from "./activityDrawer";
 import { Button } from "@headlessui/react";
+import { CircleArrowDown,CircleArrowUp } from "lucide-react";
 
 interface TransactionHistoryProps {
   transactions: TransactionData[];
@@ -48,7 +49,10 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
               <Card className="text-Celifi-Gray bg-transparent border-none">
                
                 <CardContent onClick={() => handleDrawer(tx)}>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-3 gap-4 items-center">
+                  <CardDescription className="text-left">
+                     {tx.transactionType == "Sent"? <CircleArrowDown size={30} color="Red"/>:<CircleArrowUp size={30} color="Green"/>}
+                    </CardDescription>
                     <CardDescription className="text-left">
                       Amount:{" "}
                       <span className="text-[#476520]">
@@ -60,12 +64,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                       Date:{" "}
                       <span className="text-[#476520]">{tx.date}</span>
                     </CardDescription>
-                    <CardDescription className="text-left">
-                      Type:{" "}
-                      <span className="text-[#476520]">
-                        {tx.transactionType}
-                      </span>
-                    </CardDescription>
+                   
                     
                   </div>
                 </CardContent>
