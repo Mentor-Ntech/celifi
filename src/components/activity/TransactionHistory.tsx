@@ -1,15 +1,36 @@
-import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React, { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 import { TransactionData } from "@/types/data-type";
-
+import { ActivityDrawer } from "./activityDrawer";
+import { Button } from "@headlessui/react";
 
 interface TransactionHistoryProps {
   transactions: TransactionData[];
   network: string;
 }
 
-const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions, network }) => {
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({
+  transactions,
+  network,
+}) => {
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionData | null>(null);
+
+  const handleDrawer = (tx: TransactionData) => {
+    setSelectedTransaction(tx);
+  };
+
+  const handleCloseDrawer = () => {
+    setSelectedTransaction(null);
+  };
+
   return (
     <Table className="text-Celifi-Gray">
       <TableHeader>
@@ -25,14 +46,27 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions, n
           >
             <TableCell className="font-medium w-full bg-Celifi-Slate-Green">
               <Card className="text-Celifi-Gray bg-transparent border-none">
-                <CardHeader>
-                  <p>To: <span>{tx.to || "Contract Deployed"}</span></p>
-                </CardHeader>
-                <CardContent>
+               
+                <CardContent onClick={() => handleDrawer(tx)}>
                   <div className="grid grid-cols-3 gap-4">
-                    <CardDescription className="text-left">Amount: <span className="text-[#476520]">{(tx.value / 10 ** tx.tokenDecimal).toFixed(3)} {tx.tokenSymbol}</span></CardDescription>
-                    <CardDescription className="text-left">Date: <span className="text-[#476520]">{tx.date}</span></CardDescription>
-                    <CardDescription className="text-left">Type: <span className="text-[#476520]">{tx.transactionType}</span></CardDescription>
+                    <CardDescription className="text-left">
+                      Amount:{" "}
+                      <span className="text-[#476520]">
+                        {(tx.value / 10 ** tx.tokenDecimal).toFixed(3)}{" "}
+                        {tx.tokenSymbol}
+                      </span>
+                    </CardDescription>
+                    <CardDescription className="text-left">
+                      Date:{" "}
+                      <span className="text-[#476520]">{tx.date}</span>
+                    </CardDescription>
+                    <CardDescription className="text-left">
+                      Type:{" "}
+                      <span className="text-[#476520]">
+                        {tx.transactionType}
+                      </span>
+                    </CardDescription>
+                    
                   </div>
                 </CardContent>
               </Card>
@@ -40,6 +74,14 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions, n
           </TableRow>
         ))}
       </TableBody>
+
+      {selectedTransaction && (
+        <ActivityDrawer
+          data={selectedTransaction}
+          open={true}
+          setOpen={handleCloseDrawer}
+        />
+      )}
     </Table>
   );
 };
