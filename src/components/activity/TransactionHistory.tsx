@@ -62,7 +62,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                       </span>
                     </CardDescription>
                     <CardDescription className="text-left">
-                      Date:{" "}
+                      
                       <span className="text-[#476520]">{formatDate(tx.date).split(",")[0].split(" ")[0]}</span>
                     </CardDescription>
                    
