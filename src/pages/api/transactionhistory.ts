@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { getTokenSymbol, getTransactionType } from './getTransactionHistory';
+import { groupTokensByDate } from '@/hooks/grouptxByDate';
 
 const baseURL ="https://explorer.celo.org/mainnet/api";
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
@@ -24,7 +25,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const date = new Date(tx.timeStamp * 1000).toLocaleDateString();
       return { ...tx, tokenSymbol, transactionType, date };
     }));
-    return res.status(200).json(enrichedTxData);
+    const groupedTxData =  groupTokensByDate(enrichedTxData);
+   // console.log("the grouped data is",groupedTxData)
+    return res.status(200).json(groupedTxData);
 
 
 

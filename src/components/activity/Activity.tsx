@@ -3,11 +3,12 @@ import TransactionHistory from "./TransactionHistory";
 import { fetchTransactions, connectWallet } from "@/pages/api/getTransactionHistory";
 import axios from "axios";
 import { useAccount } from "wagmi";
-import { TransactionData } from "@/types/data-type";
+import { TransactionData,TransactionsPerPeriod } from "@/types/data-type";
+
 
 const Activity: React.FC = () => {
   const {address} = useAccount()
-  const [transactions, setTransactions] = useState<TransactionData[]>([]);
+  const [transactions, setTransactions] = useState<TransactionsPerPeriod>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);

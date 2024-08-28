@@ -11,11 +11,13 @@ import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
 import { TransactionData } from "@/types/data-type";
 import { ActivityDrawer } from "./activityDrawer";
 import { Button } from "@headlessui/react";
-import { CircleArrowDown,CircleArrowUp } from "lucide-react";
+import { CircleArrowDown, CircleArrowUp } from "lucide-react";
 import { formatDate } from "@/hooks/dateFormat";
+import { TransactionsPerPeriod } from "@/types/data-type";
+import { formatDateToString } from "@/hooks/grouptxByDate";
 
 interface TransactionHistoryProps {
-  transactions: TransactionData[];
+  transactions: TransactionsPerPeriod; // Adjusted type here
   network: string;
 }
 
@@ -41,37 +43,66 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {transactions.map((tx, index) => (
-          <TableRow
-            key={index}
-            className="max-md:text-xs hover:bg-Celifi-Light-Green border-b border-Celifi-Gray"
-          >
-            <TableCell className="font-medium w-full bg-Celifi-Slate-Green">
-              <Card className="text-Celifi-Gray bg-transparent border-none">
-               
-                <CardContent onClick={() => handleDrawer(tx)}>
-                  <div className="grid grid-cols-3 gap-4 items-center">
-                  <CardDescription className="text-left">
-                     {tx.transactionType == "Sent"? <CircleArrowDown size={30} color="Red"/>:<CircleArrowUp size={30} color="Green"/>}
-                    </CardDescription>
-                    <CardDescription className="text-left">
-                      Amount:{" "}
-                      <span className="text-[#476520]">
-                        {(tx.value / 10 ** tx.tokenDecimal).toFixed(3)}{" "}
-                        {tx.tokenSymbol}
-                      </span>
-                    </CardDescription>
-                    <CardDescription className="text-left">
-                      
-                      <span className="text-[#476520]">{formatDate(tx.date).split(",")[0].split(" ")[0]}</span>
-                    </CardDescription>
-                   
-                    
-                  </div>
-                </CardContent>
-              </Card>
-            </TableCell>
-          </TableRow>
+        {Object.entries(transactions).map(([date, txs]) => (
+          <React.Fragment key={date}>
+            <CardHeader><h2 className="text-white">{formatDateToString(date)}</h2></CardHeader>
+            
+            {txs.map((tx, index) => (
+              <TableRow
+                key={index}
+                className="max-md:text-xs hover:bg-Celifi-Light-Green border-b border-Celifi-Gray"
+              >
+                <TableCell className="font-medium w-full bg-Celifi-Slate-Green">
+                  <Card className="text-Celifi-Gray bg-transparent border-none">
+                    <CardContent onClick={() => handleDrawer(tx)}>
+                      <div className="grid grid-cols-3 gap-4 items-center">
+
+                        <CardDescription className="text-left">
+                        <span className="ml-8" >
+                          {tx.tokenSymbol}
+
+                          </span>
+                          <span className="flex items-center gap-2">
+                          {tx.transactionType === "Sent" ? (
+                            <CircleArrowUp size={15} color="#EA2604" />
+                          ) : (
+                            <CircleArrowDown size={15} color="Green" />
+                          )}
+                           <span>
+                          {tx.transactionType === "Sent" ? <h4>Sent</h4> :<h4>Received</h4> }
+
+                          </span>
+
+                          </span>
+                         
+                         
+                        </CardDescription>
+                       
+                        <CardDescription className="text-left">
+                          <span className="text-[#476520]">
+                         
+                          </span>
+                        </CardDescription>
+                        <CardDescription className="text-left flex gap-4">
+                          <span>
+                          {tx.transactionType == "Sent"? `-`:`+`} 
+                          </span>
+                          
+
+                          
+                           
+                          <span className="">
+                            {(tx.value / 10 ** tx.tokenDecimal).toFixed(4)}{" "}
+                            
+                          </span>
+                        </CardDescription>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TableCell>
+              </TableRow>
+            ))}
+          </React.Fragment>
         ))}
       </TableBody>
 

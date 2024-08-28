@@ -51,3 +51,6 @@ export interface TransactionData {
     value: number;
   }
   
+  export interface TransactionsPerPeriod{
+    [date:string]: TransactionData[]
+  }
