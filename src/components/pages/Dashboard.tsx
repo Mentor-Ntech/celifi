@@ -17,7 +17,7 @@ import RequestFeature from "../token/RequestFeature";
 
 const TokensTable = dynamic(() => import("../token/tokensAll"), {
 	ssr: false,
-	loading: () => <p>Loading...</p>, // Optional loading component
+	loading: () => <p>Loading...</p> // Optional loading component
 });
 
 const TokensPage = () => {
@@ -58,7 +58,7 @@ const TokensPage = () => {
 						>
 							Tokens
 						</TabsTrigger>
-						<TabsTrigger
+						{/* <TabsTrigger
 							className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"
 							value="nft"
 							onClick={() => setTabValue("nft")}
@@ -78,7 +78,7 @@ const TokensPage = () => {
 							onClick={() => setTabValue("performance")}
 						>
 							Performance
-						</TabsTrigger>
+						</TabsTrigger> */}
 					</TabsList>
 					<TabsContent value="tokens">
 						<TokensTable />

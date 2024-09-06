@@ -9,6 +9,7 @@ import { DashboardIcon } from "./icons/Dashboard";
 import { GovernanceIcon } from "./icons/Governance";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { ActivityIcon } from "lucide-react";
 
 export function Footer() {
 	const router = useRouter();
@@ -41,7 +42,7 @@ export function Footer() {
 				</Button>
 			</Link> */}
 
-			<Link href={"/staking"} className="flex flex-col justify-center  items-center  text-xs">
+			{/* <Link href={"/staking"} className="flex flex-col justify-center  items-center  text-xs">
 				<div className="  rounded-full">
 					<StakingIcon
 						className={` ${
@@ -62,6 +63,29 @@ export function Footer() {
 					variant="link"
 				>
 					Staking
+				</Button>
+			</Link> */}
+			<Link href={"/activity"} className="flex flex-col justify-center  items-center  text-xs">
+				<div className="  rounded-full">
+					<ActivityIcon
+						className={` ${
+							pathname.includes("activity")
+								? "text-Celifi-Yellow"
+								: "text-Celifi-Gray"
+						}`}
+					/>
+				</div>
+
+				<Button
+					// onClick={() => router.push("/staking")}
+					className={` text-xs  ${
+						pathname.includes("activity")
+							? "text-Celifi-Yellow"
+							: "text-Celifi-Gray"
+					}`}
+					variant="link"
+				>
+					Activity
 				</Button>
 			</Link>
 			<Link href={"/dashboard"} className="flex flex-col justify-center  items-center  text-xs">
