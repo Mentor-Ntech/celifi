@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import toast from "react-hot-toast";
-import { X } from "lucide-react";
+import { ScanBarcode, X } from "lucide-react";
 import { Input } from "../ui/input";
 import SendTokenSelectDrawer from "./SendTokenSelectDrawer";
 const { ethers } = require("ethers-v6");
+import Scan from "../qr-scanner";
+import { Button } from "../ui/button";
 
 interface SendTokenDrawerProps {
   sendDrawerOpen: boolean;
@@ -26,6 +28,13 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
   const [sendToWalletAddr, setSendToWalletAddr] = useState("");
   const [isSendToAddrValid, setIsSendToAddrValid] = useState(false);
   const [isSendTokenSelectOpen, setIsSendTokenSelectOpen] = useState(false);
+  const [openScanner,setOpenScanner]= useState<boolean>(false)
+
+  const handleScan = (data: string) => {
+    setSendToWalletAddr(data); // Store the scanned data in the state
+    // console.log("Scanned data:", data);
+    // alert(data)
+  };
 
   useEffect(() => {
     const isAddrValid = ethers.isAddress(sendToWalletAddr);
@@ -58,10 +67,21 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
                   className="w-full md:w-[90%] mx-auto rounded-3xl text-sm bg-transparent"
                   placeholder="Input wallet address"
                   onChange={(e) => setSendToWalletAddr(e.target.value)}
+                  value={sendToWalletAddr}
                 />
               </div>
+              <div className="mt-4">
+              <Button onClick={() => {
+    setOpenScanner(true);
+    setSendToWalletAddr(""); 
+  }}> <ScanBarcode size={24}  /></Button>
+              </div>
+             
             </div>
+            {/* //new scan */}
+           
           </div>
+         
           <div className="flex flex-col h-full items-center  mx-auto w-full md:max-w-xl py-10 px-3 md:px-10 space-y-4">
             {isSendToAddrValid ? (
               <div
@@ -74,7 +94,10 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
             ) : !isSendToAddrValid && sendToWalletAddr.length ? (
               <div className="break-all text-xs">Input valid address</div>
             ) : null}
+            {openScanner && ( <Scan openQr={openScanner}  setOpenQr={setOpenScanner}  setonScan={handleScan} />)}
+            
           </div>
+          
           {isSendTokenSelectOpen && (
             <SendTokenSelectDrawer
               setIsSendTokenSelectOpen={setIsSendTokenSelectOpen}
