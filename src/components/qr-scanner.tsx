@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScanBarcode } from "lucide-react";
+import { Card,CardContent,CardDescription, CardHeader } from "./ui/card";
 
 import QrScanner from "qr-scanner";
 import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 
 
 interface props{
@@ -96,25 +98,21 @@ const Scan = ({setonScan,openQr,setOpenQr}:props) => {
   },[openQr])
 
   return (
-    
-      <div className="relative flex flex-col justify-center items-center w-full h-screen">
-        <video
-          className="h-96 w-full"
-          ref={videoEl}
-          style={{ pointerEvents: "none" }}
-          playsInline
-        />
-  
+    <div className="flex justify-center items-center w-full h-full">
+      <Card className="w-80 h-80 bg-[#5F793C4D] rounded-2xl overflow-hidden flex items-center justify-center  border-green-400 ">
         
-        <Button
-  variant="destructive"
-  className="fixed bottom-8 right-8 z-50"
-  onClick={() => closeScanner()}
->
-  Cancel
-</Button>
-      </div>
-    );
+        <CardContent className="w-full h-full p-0">
+          <video
+            className="w-full h-full object-cover"
+            ref={videoEl}
+            style={{ pointerEvents: "none" }}
+            playsInline
+          />
+        </CardContent>
+       
+      </Card>
+    </div>
+  );
 };
 
 export default Scan;
