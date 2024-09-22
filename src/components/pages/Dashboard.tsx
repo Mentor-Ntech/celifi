@@ -13,6 +13,7 @@ import useTokenBalances from "../token/TokensData";
 import { useAccount } from "wagmi";
 import { Button } from "../ui/button";
 import RequestFeature from "../token/RequestFeature";
+import Activity from "@/components/activity/Activity";
 //import('@/components/token/TokensAll')
 
 const TokensTable = dynamic(() => import("../token/tokensAll"), {
@@ -45,7 +46,8 @@ const TokensPage = () => {
 			) : tabValue === "defi" ? (
 				<DefiChart />
 			) : tabValue === "performance" ? (
-				<PerformanceChart />
+				// <PerformanceChart />
+				<TokenChart userAddress={address} TokensData={balances} />
 			) : null}
 
 			<div className="mt-6 md:mt-12 px-3 md:px-10">
@@ -97,7 +99,7 @@ const TokensPage = () => {
 						<Defi />
 					</TabsContent>
 					<TabsContent value="performance">
-						<Performance />
+						<Activity />
 					</TabsContent>
 				</Tabs>
 			</div>
