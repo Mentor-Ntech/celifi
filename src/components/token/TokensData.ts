@@ -100,7 +100,7 @@ const useTokenBalances = (userAddress: string) => {
 		tokenAddress: `0x${string}`,
 		externalAddress: string,
 		amount: bigint
-	): Promise<boolean | undefined> => {
+	): Promise<boolean | undefined | string> => {
 		try {
 			const tx = await send({
 				abi: ERC20ABI,
@@ -115,7 +115,8 @@ const useTokenBalances = (userAddress: string) => {
 			// Check the transaction status
 			if (!error) {
 				console.log("Transaction successful!");
-				return true;
+				//return true;
+				return tx
 			} else {
 				console.log("Transaction failed!");
 				return false;
