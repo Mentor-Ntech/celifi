@@ -121,7 +121,7 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 				setMessageModal(true)
 				// toast.success("Tokens sent successfully!");
 				// setSendDrawerOpen(false);
-				 setIsSendTokenSelectOpen(false);
+				 //setIsSendTokenSelectOpen(false);
 			} else {
 				toast.error("Please fill all the fields");
 			}

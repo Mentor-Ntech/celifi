@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X } from "lucide-react";
+import { ChevronLeft} from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -21,7 +21,7 @@ export function SentMessage({ setMessage, isOpen,hash,message }: ScanProps) {
   return (
     <Drawer open={isOpen} onOpenChange={setMessage}>
       <DrawerContent className="flex items-center justify-center h-screen bg-Celifi-Primary text-Celifi-Gray border-none p-0">
-        <X
+        <ChevronLeft
           onClick={() => setMessage(false)}
           className="text-white/80 cursor-pointer ml-3 w-8 h-8 absolute top-4 left-4"
         />
