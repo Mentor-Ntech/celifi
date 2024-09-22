@@ -10,7 +10,7 @@ import useTokenBalances, { Tokens } from "./TokensData";
 import { cn } from "@/lib/utils";
 import { stringToBigint } from "@/hooks/stringToBigint";
 import { AlertSpinner } from "../spinner";
-
+import { SentMessage } from "../sentMessageModal";
 interface SendTokenSelectDrawerProps {
 	sendDrawerOpen: boolean;
 	setSendDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,6 +53,8 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 	const [sendBtnText, setSendBtnText] = useState<JSX.Element | string>(
 		"Continue"
 	);
+	const [hash,setHash]= useState<string | boolean | undefined>("")
+	const [messageModal, setMessageModal] = useState<boolean>(false);
 
 	useEffect(() => {
 		setTokenAmountInput("");
@@ -115,9 +117,11 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 					sendToWalletAddr,
 					amountBigint
 				);        
-				toast.success("Tokens sent successfully!");
-				setSendDrawerOpen(false);
-				setIsSendTokenSelectOpen(false);
+				setHash(res)
+				setMessageModal(true)
+				// toast.success("Tokens sent successfully!");
+				// setSendDrawerOpen(false);
+				 setIsSendTokenSelectOpen(false);
 			} else {
 				toast.error("Please fill all the fields");
 			}
@@ -218,6 +222,7 @@ const SendTokenSelectDrawer: React.FC<SendTokenSelectDrawerProps> = ({
 							{sendBtnText}
 						</Button>
 					</div>
+					{messageModal && (<SentMessage hash={hash as string} message="Sent" setMessage={setMessageModal} isOpen={messageModal}/>)}
 					
 				</div>
 			</DrawerContent>

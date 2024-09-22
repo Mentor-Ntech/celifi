@@ -87,7 +87,7 @@ const SendTokenDrawer: React.FC<SendTokenDrawerProps> = ({
   </div>
 </div>
 
-            {/* //new scan */}
+            
            
           </div>
          
