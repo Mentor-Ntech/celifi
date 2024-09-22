@@ -10,6 +10,7 @@ import { GovernanceIcon } from "./icons/Governance";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ActivityIcon } from "lucide-react";
+import { FeatureRequest } from "./icons/FeatureRequest";
 
 export function Footer() {
 	const router = useRouter();
@@ -65,7 +66,7 @@ export function Footer() {
 					Staking
 				</Button>
 			</Link> */}
-			<Link href={"/activity"} className="flex flex-col justify-center  items-center  text-xs">
+			{/* <Link href={"/activity"} className="flex flex-col justify-center  items-center  text-xs">
 				<div className="  rounded-full">
 					<ActivityIcon
 						className={` ${
@@ -87,7 +88,7 @@ export function Footer() {
 				>
 					Activity
 				</Button>
-			</Link>
+			</Link> */}
 			<Link href={"/dashboard"} className="flex flex-col justify-center  items-center  text-xs">
 				<div className="rounded-full">
 					<DashboardIcon
@@ -132,6 +133,29 @@ export function Footer() {
 					variant="link"
 				>
 					Swap
+				</Button>
+			</Link>
+			<Link href={'/feature-request'} className="flex flex-col justify-center  items-center  text-xs">
+				<div className=" rounded-full">
+					<FeatureRequest
+						className={` ${
+							pathname.includes("feature-request")
+								? "text-Celifi-Yellow"
+								: "text-Celifi-Gray"
+						}`}
+					/>
+				</div>
+
+				<Button
+					// onClick={() => router.push("/feature-request")}
+					className={`  text-xs ${
+						pathname.includes("feature-request")
+							? "text-Celifi-Yellow"
+							: "text-Celifi-Gray"
+					}`}
+					variant="link"
+				>
+					Feature Request
 				</Button>
 			</Link>
 			{/* <div className="flex flex-col justify-center  items-center  text-xs">
