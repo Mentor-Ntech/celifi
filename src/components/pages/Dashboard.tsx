@@ -29,13 +29,13 @@ const TokensPage = () => {
 	console.log("All datas", balances);
 	return (
 		<>
-			<RequestFeature
+			{/* <RequestFeature
 				reqFeatureOpen={reqFeatureOpen}
 				setReqFeatureOpen={setReqFeatureOpen}
 			/>
 			<Button onClick={() => setReqFeatureOpen(true)} className="bg-[#476520]  hover:bg-[#476520]/80 text-sm font-light rounded-full p-6 fixed bottom-20 transform left-1/2 -translate-x-1/2 z-40">
 				Request feature
-			</Button>
+			</Button> */}
 
 			<div className="">tokens</div>
 			{tabValue === "tokens" && !loading ? (
@@ -57,6 +57,13 @@ const TokensPage = () => {
 							onClick={() => setTabValue("tokens")}
 						>
 							Tokens
+						</TabsTrigger>
+						<TabsTrigger
+							className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"
+							value="performance"
+							onClick={() => setTabValue("performance")}
+						>
+							Activity
 						</TabsTrigger>
 						{/* <TabsTrigger
 							className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"

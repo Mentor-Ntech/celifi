@@ -6,6 +6,8 @@ import { X, Share2 } from "lucide-react";
 import { Copy } from "lucide-react";
 import { shareToGoogleMail, shareToWhatsApp } from "@/share/share";
 import { Button } from "../ui/button";
+import { CopyIcon } from "../icons/CopyIcon";
+import { ShareIcon } from "../icons/ShareIcon";
 
 interface ReceiveTokenDrawerProps {
   receiveDrawerOpen: boolean;
@@ -33,19 +35,39 @@ const ReceiveTokenDrawer: React.FC<ReceiveTokenDrawerProps> = ({
         <div className="flex flex-col h-full items-center justify-center mx-auto w-full max-w-sm p-10 space-y-4">
           <QrCode value={addressToUse as `0x${string}`} />
 
-          <div className="break-all">
+          {/* <div className="break-all">
             <p className="text-xs text-center">{addressToUse}</p>
-          </div>
-          <div className="flex w-full justify-between items-center gap-4">
-            <div
-              className="flex justify-center items-center h-[40px]   flex-1 bg-[#476520] rounded-[2px] text-white text-sm cursor-pointer px-3"
-              onClick={() => handleCopy()}
-            >
-              <p className="inline-flex gap-3 justify-center whitespace-nowrap items-center ">
-                Copy address <Copy className="w-4 h-4" />
-              </p>
+          </div> */}
+          <div
+            className="grid grid-cols-5 gap-5 bg-[#476520] rounded-md text-white text-sm  p-3"
+            // onClick={() => handleCopy()}
+          >
+            <p className="col-span-3  break-words gap-3 justify-center  items-center ">
+              {addressToUse}
+            </p>
+            {/* Copy address <Copy className="w-4 h-4" /> */}
+            <div className="col-span-2 flex w-full justify-between ">
+              <div
+                className="bg-[#354B17] p-4 cursor-pointer hover:scale-110  rounded-md"
+                onClick={() => handleCopy()}
+              >
+                <CopyIcon className="text-[#799F46] " />
+              </div>
+              <div
+                className="bg-[#354B17] hover:scale-110 cursor-pointer p-4 rounded-md"
+                onClick={() => shareToWhatsApp(addressToUse)}
+              >
+                <ShareIcon className="text-[#799F46] " />
+              </div>
             </div>
-            <Button
+          </div>
+          <div>
+            <p className="text-center">
+              {" "}
+              This address can only be used to receive compatible tokens
+            </p>
+          </div>
+          {/* <Button
               variant="outline"
               className="bg-transparent py-4 px-4 rounded-sm hover:bg-gray-50/10 border-[#476520]"
             >
@@ -54,8 +76,7 @@ const ReceiveTokenDrawer: React.FC<ReceiveTokenDrawerProps> = ({
                 className="w-4 h-4"
                 onClick={() => shareToWhatsApp(addressToUse)}
               />
-            </Button>
-          </div>
+            </Button> */}
         </div>
       </DrawerContent>
     </Drawer>
