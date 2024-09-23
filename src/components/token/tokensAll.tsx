@@ -2,6 +2,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { useAccount, useReadContract } from "wagmi";
+import { QrCode } from "lucide-react";
 
 import {
 	Table,
@@ -29,7 +30,6 @@ const TokensTable = () => {
 	const [receiveDrawerOpen, setReceiveDrawerOpen] = React.useState(false);
 	const [sendDrawerOpen, setSendDrawerOpen] = React.useState(false);
 
-
 	return (
 		<div className="text-Celifi-Gray">
 			{!isConnected ? (
@@ -43,12 +43,14 @@ const TokensTable = () => {
 							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-[#476520]  hover:bg-[#476520]/80 rounded-xl text-white text-sm cursor-pointer"
 							onClick={() => setReceiveDrawerOpen(true)}
 						>
+							<QrCode className="mr-2" size={16} /> {/* Add the icon here */}
 							<p>Receive</p>
 						</Button>
 						<Button
 							className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-[#476520]  hover:bg-[#476520]/80 rounded-xl text-white text-sm cursor-pointer"
 							onClick={() => setSendDrawerOpen(true)}
 						>
+							<QrCode className="mr-2" size={16} /> {/* Add the icon here */}
 							<p>Send</p>
 						</Button>
 					</div>
