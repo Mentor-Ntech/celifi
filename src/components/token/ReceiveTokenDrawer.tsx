@@ -39,14 +39,14 @@ const ReceiveTokenDrawer: React.FC<ReceiveTokenDrawerProps> = ({
             <p className="text-xs text-center">{addressToUse}</p>
           </div> */}
           <div
-            className="grid grid-cols-5 gap-5 bg-[#476520] rounded-md text-white text-sm  p-3"
+            className="grid grid-cols-5 gap-2 md:gap-5 items-center justify-center bg-[#476520] rounded-md text-white text-sm p-2 md:p-3"
             // onClick={() => handleCopy()}
           >
-            <p className="col-span-3  break-words gap-3 justify-center  items-center ">
+            <p className="col-span-3 max-md:text-xs break-words gap-3 justify-center  items-center ">
               {addressToUse}
             </p>
             {/* Copy address <Copy className="w-4 h-4" /> */}
-            <div className="col-span-2 flex w-full justify-between ">
+            <div className="col-span-2 flex w-full items-center justify-center sm:justify-between gap-3">
               <div
                 className="bg-[#354B17] p-4 cursor-pointer hover:scale-110  rounded-md"
                 onClick={() => handleCopy()}

@@ -337,7 +337,7 @@ const SwapCard: React.FC = () => {
                 onClick={swapPair}
                 disabled={enableSwap}
                 // variant={"outline"}
-                className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-2xl hover:bg-Celifi-Swap-Green/80"
+                className="w-full text-gray-50 bg-Celifi-Swap-Green rounded-sm hover:bg-Celifi-Swap-Green/80"
               >
                 Confirm swap
               </Button>
