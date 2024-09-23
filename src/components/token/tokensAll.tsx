@@ -30,6 +30,7 @@ const TokensTable = () => {
 
   const [receiveDrawerOpen, setReceiveDrawerOpen] = React.useState(false);
   const [sendDrawerOpen, setSendDrawerOpen] = React.useState(false);
+  console.log("balances",balances)
 
 
   return (

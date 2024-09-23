@@ -51,7 +51,23 @@ const cKES = {
     "https://assets.coingecko.com/coins/images/38052/standard/cKES_200x200.png",
 };
 
-export const MainnetTokens = [cUSD, cEUR, cREAL, CELO, cKES, McUSD];
+const USDC =  {
+    address: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C" as `0x${string}`,
+    symbol: "USDC",
+    name: "usd-coin",
+    decimals: 6,
+    image:
+      "https://raw.githubusercontent.com/compound-finance/token-list/master/assets/asset_USDC.svg",
+  }
+  const  USDT =    {
+      address: "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e" as `0x${string}`,
+      symbol: "USD₮",
+      name: "tether",
+      decimals: 6,
+      image:
+        "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+    }
+export const MainnetTokens = [cUSD, cEUR, cREAL, CELO, cKES, McUSD, USDC,USDT];
 
 export const tokenPairs = {
   cUSD: [

@@ -75,10 +75,10 @@ const createContract = async (tokenAddress: string) => {
 // 	return celoTokenContract;
 // };
 
-const getBalance = async (tokenAddress: string, userAddress: string) => {
+const getBalance = async (tokenAddress: string, userAddress: string,tokenDecimal:number) => {
 	const celoTokenContract = await createContract(tokenAddress);
 	const balance = await celoTokenContract.balanceOf(userAddress);
-	return (Number(balance.toString()) / 10 ** 18).toFixed(5);
+	return (Number(balance.toString()) / 10 ** tokenDecimal).toFixed(5);
 };
 
 //get signer
@@ -138,7 +138,7 @@ const useTokenBalances = (userAddress: string) => {
 			const balancePromises = MainnetTokens.map(async (token, index) => {
 				try {
 					//const amount =  balance(token.address, 0);
-					const bal = await getBalance(token.address, userAddress);
+					const bal = await getBalance(token.address, userAddress,token.decimals);
 					const price = await getPriceInUsd(token.name);
 					console.log("price price", price);
 					console.log("data data", token.address);
