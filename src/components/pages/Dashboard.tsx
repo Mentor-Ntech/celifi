@@ -17,6 +17,7 @@ import Activity from "@/components/activity/Activity";
 //import('@/components/token/TokensAll')
 
 const TokensTable = dynamic(() => import("../token/tokensAll"), {
+
   ssr: false,
   loading: () => <p>Loading...</p>, // Optional loading component
 });
@@ -109,3 +110,4 @@ const TokensPage = () => {
 };
 
 export default TokensPage;
+

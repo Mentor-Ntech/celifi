@@ -2,6 +2,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { useAccount, useReadContract } from "wagmi";
+import { QrCode } from "lucide-react";
 
 import {
   Table,
@@ -30,6 +31,7 @@ const TokensTable = () => {
   const [receiveDrawerOpen, setReceiveDrawerOpen] = React.useState(false);
   const [sendDrawerOpen, setSendDrawerOpen] = React.useState(false);
 
+
   return (
     <div className="text-Celifi-Gray">
       {!isConnected ? (
@@ -52,6 +54,8 @@ const TokensTable = () => {
               onClick={() => setSendDrawerOpen(true)}
             >
               <Image src={squareQRScanIcon} alt="scan" className="w-5 h-auto" />
+
+	
 
               <p>Send</p>
             </Button>
