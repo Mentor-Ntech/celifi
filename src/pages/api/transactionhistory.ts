@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     combinedTxData.sort((a: any, b: any) => b.timeStamp - a.timeStamp);
     const filteredTxData = combinedTxData.filter((tx: any) => parseFloat(tx.value) !== 0);
 
-    const enrichedTxData = await Promise.all(filteredTxData.slice(0, 20).map(async (tx: any) => {
+    const enrichedTxData = await Promise.all(filteredTxData.slice(0, 100).map(async (tx: any) => {
       const tokenSymbol = tx.tokenSymbol || await getTokenSymbol(tx.to);
       const transactionType = getTransactionType(tx, address as string);
       const date = new Date(tx.timeStamp * 1000).toLocaleDateString();
