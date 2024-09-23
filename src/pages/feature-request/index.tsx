@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="h-full w-full flex justify-center items-center">
+    <main className="h-full px-2 md:px-6 flex justify-center items-center">
       <div className="mx-auto w-full space-y-4 text-Celifi-Gray max-w-lg">
         <h2 className="text-2xl md:text-3xl">Send us a feature request</h2>
         <form

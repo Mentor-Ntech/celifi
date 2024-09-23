@@ -17,20 +17,20 @@ import Activity from "@/components/activity/Activity";
 //import('@/components/token/TokensAll')
 
 const TokensTable = dynamic(() => import("../token/tokensAll"), {
-	ssr: false,
-	loading: () => <p>Loading...</p> // Optional loading component
+  ssr: false,
+  loading: () => <p>Loading...</p>, // Optional loading component
 });
 
 const TokensPage = () => {
-	const [tabValue, setTabValue] = useState("tokens");
-	const { address, isConnected } = useAccount();
-	const [reqFeatureOpen, setReqFeatureOpen] = useState(false);
-	const addressToUse = address;
-	const { balances, loading } = useTokenBalances(addressToUse as string);
-	console.log("All datas", balances);
-	return (
-		<>
-			{/* <RequestFeature
+  const [tabValue, setTabValue] = useState("tokens");
+  const { address, isConnected } = useAccount();
+  const [reqFeatureOpen, setReqFeatureOpen] = useState(false);
+  const addressToUse = address;
+  const { balances, loading } = useTokenBalances(addressToUse as string);
+  console.log("All datas", balances);
+  return (
+    <>
+      {/* <RequestFeature
 				reqFeatureOpen={reqFeatureOpen}
 				setReqFeatureOpen={setReqFeatureOpen}
 			/>
@@ -38,36 +38,37 @@ const TokensPage = () => {
 				Request feature
 			</Button> */}
 
-			<div className="">tokens</div>
-			{tabValue === "tokens" && !loading ? (
-				<TokenChart userAddress={address} TokensData={balances} />
-			) : tabValue === "nft" ? (
-				<NftChart />
-			) : tabValue === "defi" ? (
-				<DefiChart />
-			) : tabValue === "performance" ? (
-				// <PerformanceChart />
-				<TokenChart userAddress={address} TokensData={balances} />
-			) : null}
 
-			<div className="mt-6 md:mt-12 px-3 md:px-10">
-				<Tabs defaultValue="tokens">
-					<TabsList className="bg-transparent  justify-between mb-8 ">
-						<TabsTrigger
-							className=" flex flex-col text-xs sm:text-base rounded-none px-4 md:px-8  "
-							value="tokens"
-							onClick={() => setTabValue("tokens")}
-						>
-							Tokens
-						</TabsTrigger>
-						<TabsTrigger
-							className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"
-							value="performance"
-							onClick={() => setTabValue("performance")}
-						>
-							Activity
-						</TabsTrigger>
-						{/* <TabsTrigger
+      <div className="">tokens</div>
+      {tabValue === "tokens" && !loading ? (
+        <TokenChart userAddress={address} TokensData={balances} />
+      ) : tabValue === "nft" ? (
+        <NftChart />
+      ) : tabValue === "defi" ? (
+        <DefiChart />
+      ) : tabValue === "performance" ? (
+        // <PerformanceChart />
+        <TokenChart userAddress={address} TokensData={balances} />
+      ) : null}
+
+      <div className="mt-6 md:mt-12 px-3 md:px-10">
+        <Tabs defaultValue="tokens">
+          <TabsList className="bg-transparent  justify-between mb-8 ">
+            <TabsTrigger
+              className=" flex flex-col text-xs sm:text-base rounded-none px-4 md:px-8  "
+              value="tokens"
+              onClick={() => setTabValue("tokens")}
+            >
+              Tokens
+            </TabsTrigger>
+            <TabsTrigger
+              className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"
+              value="performance"
+              onClick={() => setTabValue("performance")}
+            >
+              Activity
+            </TabsTrigger>
+            {/* <TabsTrigger
 							className=" flex flex-col text-xs sm:text-base  rounded-none px-4 md:px-8"
 							value="nft"
 							onClick={() => setTabValue("nft")}
@@ -88,23 +89,23 @@ const TokensPage = () => {
 						>
 							Performance
 						</TabsTrigger> */}
-					</TabsList>
-					<TabsContent value="tokens">
-						<TokensTable />
-					</TabsContent>
-					<TabsContent value="nft">
-						<NFTSTable />
-					</TabsContent>
-					<TabsContent value="defi">
-						<Defi />
-					</TabsContent>
-					<TabsContent value="performance">
-						<Activity />
-					</TabsContent>
-				</Tabs>
-			</div>
-		</>
-	);
+          </TabsList>
+          <TabsContent value="tokens">
+            <TokensTable />
+          </TabsContent>
+          <TabsContent value="nft">
+            <NFTSTable />
+          </TabsContent>
+          <TabsContent value="defi">
+            <Defi />
+          </TabsContent>
+          <TabsContent value="performance">
+            <Activity />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </>
+  );
 };
 
 export default TokensPage;
