@@ -197,6 +197,7 @@ const SwapCard: React.FC = () => {
                     onClick={() => {
                       setSelectedOption("base");
                       setOpenDialog(true);
+                      setQuoteerror("");
                     }}
                     // variant="outline"
                     size="sm"
@@ -230,6 +231,7 @@ const SwapCard: React.FC = () => {
                     onClick={() => {
                       setSelectedOption("base");
                       setOpenDialog(true);
+                      setQuoteerror("");
                     }}
                     className="rounded-none py-6 flex  bg-Celifi-Swap-Green hover:bg-Celifi-Swap-Green/80 gap-1"
                   >
@@ -255,7 +257,7 @@ const SwapCard: React.FC = () => {
                   placeholder="0.0"
                   value={Number(
                     quoteTokenAmount
-                      ? (Number(quoteTokenAmount.toString()) / 10 ** 18)
+                      ? (Number(quoteTokenAmount.toString()) / 10 ** quoteToken.decimals)
                       : "0"
                   )}
                   disabled={true}

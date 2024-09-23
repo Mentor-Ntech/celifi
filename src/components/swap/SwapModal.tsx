@@ -12,7 +12,7 @@ import { Token } from "./SwapCard";
 import { MainnetTokens as untypedMainnetToken } from "@/Utils/Tokens";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import tokenPairs from "@/Utils/Tokens";
+import { tokenPairs,tokenPairs2 } from "@/Utils/Tokens";
 import { Separator } from "../ui/separator";
 
 const MainnetTokens = untypedMainnetToken as Token[];
@@ -34,10 +34,25 @@ interface TokenPairs {
 	[key: string]: Token[];
 }
 
+const pairTokens = (tokenPair: string) => {
+	
+	const result = tokenPairs2.flatMap((token) => (token as Record<string, any>)[tokenPair] || []);
+	return result;
+  };
+  
+const filtIt = tokenPairs2.flatMap((token)=> token)
+//filter
+const filt3 = Object.entries(tokenPairs)
+const filteredTokenList:Token[] = tokenPairs2.map((pair) => {
+	const [key, value] = Object.entries(pair)[0];
+	return value[0];
+  });
+
+
 // Extract the first token from each tokenPair object
-const filteredTokenList = Object.values(tokenPairs)
-	.flatMap((pair) => pair.slice(0, 1))
-	.sort((a, b) => a.name.localeCompare(b.name)) as Token[];
+// const filteredTokenList = Object.values(tokenPairs)
+// 	.flatMap((pair) => pair.slice(0, 1))
+// 	.sort((a, b) => a.name.localeCompare(b.name)) as Token[];
 
 const SwapModal: React.FC<SwapModalProps> = ({
 	baseToken,
@@ -54,6 +69,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
 	const [search, setSearch] = useState<string>("");
 
 	useEffect(() => {
+		
 		const filteredSearch = filteredTokenList.filter((searchResult) => {
 			const result =
 				searchResult.address
@@ -74,7 +90,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
 	}, [openDialog]);
 
 	const handleSetToken = (tokenInfo: Token) => {
-		console.log(tokenInfo);
+		
 		if (selectedOption === "base") {
 			setBaseToken({ ...tokenInfo, amount: "" });
 		}
@@ -103,7 +119,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
 						</div>
 					</DialogHeader>
 					<div className="flex gap-3 flex-wrap">
-						{MainnetTokens.map((MainnetToken) => (
+						{filteredTokenList.map((MainnetToken) => (
 							<div
 								key={MainnetToken.address}
 								onClick={() => handleSetToken(MainnetToken)}
@@ -161,6 +177,7 @@ const SwapModal: React.FC<SwapModalProps> = ({
 												}`}
 											>
 												<div className="flex gap-4 items-center">
+													
 													<Image
 														width={30}
 														height={30}

@@ -47,11 +47,14 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
           <React.Fragment key={date}>
             <CardHeader><h2 className="text-white">{formatDateToString(date)}</h2></CardHeader>
             
+            
             {txs.map((tx, index) => (
+              
               <TableRow
                 key={index}
                 className="max-md:text-xs hover:bg-Celifi-Light-Green border-b border-Celifi-Gray"
               >
+                 {!isNaN(tx.value) && !isNaN(tx.tokenDecimal) &&(
                 <TableCell className="font-medium w-full bg-Celifi-Slate-Green">
                   <Card className="text-Celifi-Gray bg-transparent border-none">
                     <CardContent onClick={() => handleDrawer(tx)}>
@@ -83,6 +86,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                          
                           </span>
                         </CardDescription>
+                        
                         <CardDescription className="text-left flex gap-4">
                           <span>
                           {tx.transactionType == "Sent"? `-`:`+`} 
@@ -90,16 +94,20 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                           
 
                           
-                           
-                          <span className="">
-                            {(tx.value / 10 ** tx.tokenDecimal).toFixed(4)}{" "}
+                          
+                            <span className="">
+                            {(Number(tx.value) / 10 ** Number(tx.tokenDecimal)).toFixed(4)}{" "}
                             
                           </span>
+
+                           
+                          
                         </CardDescription>
                       </div>
                     </CardContent>
                   </Card>
                 </TableCell>
+                 )}
               </TableRow>
             ))}
           </React.Fragment>
