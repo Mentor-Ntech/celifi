@@ -1,12 +1,8 @@
-"use client"
-
+"use client";
 import * as React from "react";
-import { ScrollArea } from "../ui/scroll-area";
-import { Separator } from "../ui/separator";
-import { MainnetTokens } from "@/Utils/Tokens";
 import Image from "next/image";
 import { useAccount, useReadContract } from "wagmi";
-import ERC20ABI from "../../abi/IERC20.json";
+import { QrCode } from "lucide-react";
 
 import {
   Table,
@@ -16,35 +12,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import squareQRScanIcon from "/public/svg/squre-qrscan.svg";
 
 import useTokenBalances from "./TokensData";
 import NoWallet from "../NoWalletConnection";
 
-import { stringToBigint } from "@/hooks/stringToBigint";
-
 import ReceiveTokenDrawer from "./ReceiveTokenDrawer";
 import SendTokenDrawer from "./SendTokenDrawer";
+import { Button } from "../ui/button";
 
 const TokensTable = () => {
   const { address, isConnected } = useAccount();
-  const [opendialog, setOpendialog] = React.useState<boolean>(false);
-  const [externalAddress, setExternalAddres] = React.useState<string>("");
-  const [amount, setAmount] = React.useState<string>("");
-  const [tokenAddress, setTokenAddress] = React.useState<string>("");
-  const [tokenSymbol, setTokenSymbol] = React.useState<string>("");
   const addressToUse = address;
   const { balances, loading, sendToken } = useTokenBalances(
     addressToUse as string
@@ -52,55 +30,11 @@ const TokensTable = () => {
 
   const [receiveDrawerOpen, setReceiveDrawerOpen] = React.useState(false);
   const [sendDrawerOpen, setSendDrawerOpen] = React.useState(false);
-console.log(balances)
-  // const { balances, loading } = isConnected ? useTokenBalances(address as string) : { balances: [], loading: false };
+  console.log("balances",balances)
 
-  const handlesend = async () => {
-    if (amount && externalAddress && tokenAddress) {
-      const amountBigint = stringToBigint(amount);
-      await sendToken(
-        tokenAddress as `0x${string}`,
-        externalAddress,
-        amountBigint
-      );
-      setOpendialog(false);
-      setAmount("");
-      setExternalAddres("");
-    } else {
-      console.log("address", externalAddress);
-      console.log("amount", amount);
-      console.log("tokenAddress", tokenAddress);
-      alert("Please fill all fields");
-    }
-  };
 
   return (
     <div className="text-Celifi-Gray">
-      <div className="w-5/6">
-        <AlertDialog open={opendialog}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Sending {tokenSymbol} </AlertDialogTitle>
-              <Input
-                className="text-center"
-                placeholder="0x566433...8565"
-                onChange={(e) => setExternalAddres(e.target.value)}
-              />
-              <Input
-                className="text-center"
-                placeholder="10"
-                onChange={(e) => setAmount(e.target.value)}
-              />
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <div className="flex justify-between items-center w-full ">
-                <Button onClick={() => setOpendialog(false)}>Cancel</Button>
-                <Button onClick={handlesend}>Continue</Button>
-              </div>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
       {!isConnected ? (
         <div className="w-full flex justify-center items-center">
           <NoWallet />
@@ -108,18 +42,24 @@ console.log(balances)
       ) : (
         <>
           <div className="flex items-center justify-around gap-6">
-            <div
-              className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-custom-button-gradient rounded-[2px] text-white text-sm cursor-pointer"
+            <Button
+              className="flex justify-center gap-2 items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-[#476520]  hover:bg-[#476520]/80 rounded-sm text-white text-sm cursor-pointer"
               onClick={() => setReceiveDrawerOpen(true)}
             >
+              <Image src={squareQRScanIcon} alt="scan" className="w-5 h-auto" />
+
               <p>Receive</p>
-            </div>
-            <div
-              className="flex justify-center items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-custom-button-gradient rounded-[2px] text-white text-sm cursor-pointer"
+            </Button>
+            <Button
+              className="flex justify-center gap-2 items-center max-md:h-[40px] max-md:w-[129px] md:h-12 w-36 bg-transparent border-2 border-[#476520]/80 hover:bg-black/80 rounded-sm text-white text-sm cursor-pointer"
               onClick={() => setSendDrawerOpen(true)}
             >
+              <Image src={squareQRScanIcon} alt="scan" className="w-5 h-auto" />
+
+	
+
               <p>Send</p>
-            </div>
+            </Button>
           </div>
 
           <ReceiveTokenDrawer
@@ -144,15 +84,7 @@ console.log(balances)
             </TableHeader>
             <TableBody className="w-full">
               {balances.map((token, index) => (
-                <TableRow
-                  className="max-md:text-xs"
-                  onClick={() => {
-                    setOpendialog(true);
-                    setTokenAddress(token.address);
-                    setTokenSymbol(token.symbol);
-                  }}
-                  key={token.address}
-                >
+                <TableRow className="max-md:text-xs" key={token.address}>
                   <TableCell>
                     <div className="flex gap-2">
                       <div className="bg-Celifi-Gray bg-clip-content rounded-full">

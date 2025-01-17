@@ -19,6 +19,7 @@ const config = {
     },   
     extend: {
       colors: {
+        "Celifi-Swap-Green": "#476520",
         "Celifi-Primary":"#090D05", 
         "Celifi-Dark-Green":"#020300",   
         "Celifi-Yellow":"#FCFF52",  
